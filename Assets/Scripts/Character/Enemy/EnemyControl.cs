@@ -11,7 +11,6 @@ public enum EnemyState
     DIE
 }
 
-
 public abstract class EnemyControl : MonoBehaviour
 {
     [SerializeField] protected EnemyState currentState = EnemyState.IDLE;

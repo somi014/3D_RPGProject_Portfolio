@@ -6,7 +6,7 @@ using TMPro;
 
 public partial class PlayerStateManager
 {
-    #region ConcreteStates
+    #region 상태 
     public IdleState idlingState = new IdleState();
     public JumpState jumpState = new JumpState();
     public RollState rollState = new RollState();
@@ -15,8 +15,8 @@ public partial class PlayerStateManager
     public HealState healState = new HealState();
     #endregion
 
-    public PlayerBaseState currentState;                        //수정예정!
-    public TextMeshProUGUI stateText;                           //수정예정!
+    public PlayerBaseState currentState;                        //현재 상태
+    public TextMeshProUGUI stateText;                           //상태 표시용
 
     [Header("Player")]
     [Tooltip("Move speed of the character in m/s")]
@@ -109,25 +109,35 @@ public partial class PlayerStateManager
     [HideInInspector] public int _animIDDie;
 
 #if ENABLE_INPUT_SYSTEM
-    public PlayerInput _playerInput;
+    [HideInInspector] public PlayerInput _playerInput;
 #endif
+
     [HideInInspector] public Animator _animator;
+    [HideInInspector] public StatAttribute stats;
+
     private CharacterController _controller;
     private GameObject _mainCamera;
-    [HideInInspector] public StatAttribute stats;
     private DamageDealer damageDealer;
 
-    private const float _threshold = 0.01f;
+    private const float _threshold = 0.01f;         //오차 값
 
     private bool _hasAnimator;
-    [HideInInspector] public bool deadProcess = false;
+    [HideInInspector] public bool deadProcess = false;                //죽었을 때 프로세스 진행했는지 여부
 
+    [Header("Camera")]
+    public GameObject playerFollowCamera;
+    public GameObject sideCamera;
+
+    [Header("Spawn")]
+    public Transform respawn_tr;
+
+    [Header("Particle")]
     [SerializeField]
-    private ParticleSystem[] particle;
+    private ParticleSystem[] particle;              //공격 파티클
     [SerializeField]
-    private ParticleSystem heal_particle;
+    private ParticleSystem heal_particle;           //회복 파티클
     [SerializeField]
-    private ParticleSystem level_particle;
+    private ParticleSystem level_particle;          //레벨 업 파티클
 
     private bool IsCurrentDeviceMouse
     {

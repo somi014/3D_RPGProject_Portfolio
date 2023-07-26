@@ -8,11 +8,6 @@ using UnityEngine.InputSystem;
 #endif
 public partial class PlayerStateManager : MonoBehaviour
 {
-    public GameObject playerFollowCamera;
-    public GameObject sideCamera;
-
-    public Transform respawn_tr;
-
     private void Awake()
     {
         // get a reference to our main camera
@@ -111,7 +106,7 @@ public partial class PlayerStateManager : MonoBehaviour
     }
 
     /// <summary>
-    /// check player is on Ground
+    /// 바닥 체크
     /// </summary>
     private void GroundedCheck()
     {
@@ -124,6 +119,10 @@ public partial class PlayerStateManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 상태 변환하기
+    /// </summary>
+    /// <param name="state"></param>
     public void SwitchState(PlayerBaseState state)
     {
         stateText.text = state.ToString();
@@ -326,6 +325,10 @@ public partial class PlayerStateManager : MonoBehaviour
             GroundedRadius);
     }
 
+    /// <summary>
+    /// 사이드 카메라 활성화
+    /// </summary>
+    /// <param name="sideOn"></param>
     public void CamaraChange(bool sideOn)
     {
         LockCameraPosition = sideOn;
@@ -405,6 +408,7 @@ public partial class PlayerStateManager : MonoBehaviour
         SwitchState(idlingState);
     }
     #endregion
+
     public void LevelEffect()
     {
         level_particle.Play();

@@ -5,11 +5,10 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    [Header("Config")]
-    [SerializeField] private bool loadQuestState = true;
+    [SerializeField] private bool loadQuestState = true;        //저장할 건지
 
-    [SerializeField] QuestInfoSo[] allQuests;
-
+    [SerializeField] QuestInfoSo[] allQuests;                   //전체 퀘스트
+        
     private Dictionary<string, Quest> questMap;
 
     private int currentPlayerLevel;       
@@ -106,6 +105,11 @@ public class QuestManager : MonoBehaviour
         currentPlayerLevel = level;
     }
 
+    /// <summary>
+    /// 퀘스트 진행 조건이 만족했는지
+    /// </summary>
+    /// <param name="quest"></param>
+    /// <returns></returns>
     private bool CheckrequirementsMet(Quest quest)
     {
         bool meetsRequirements = true;
@@ -126,6 +130,7 @@ public class QuestManager : MonoBehaviour
         return meetsRequirements;
     }
 
+    #region 퀘스트 프로세스
     private void StartQuest(string id)
     {
         Quest quest = GetQuestById(id);
@@ -162,7 +167,11 @@ public class QuestManager : MonoBehaviour
         currentQuestIndex++;
         NextQuestNpc();
     }
+    #endregion
 
+    /// <summary>
+    /// 다음 진행할 퀘스트의 npc 활성화
+    /// </summary>
     private void NextQuestNpc()
     {
         if (questMap.Count <= currentQuestIndex)
@@ -217,6 +226,11 @@ public class QuestManager : MonoBehaviour
         return idToQuestMap;
     }
 
+    /// <summary>
+    /// 퀘스트 반환
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     private Quest GetQuestById(string id)
     {
         Quest quest = questMap[id];
@@ -243,8 +257,6 @@ public class QuestManager : MonoBehaviour
             QuestData questData = quest.GetQuestData();
             string serializedData = JsonUtility.ToJson(questData);
             PlayerPrefs.SetString(quest.info.id, serializedData);
-
-            //Debug.Log(serializedData);
         }
         catch (Exception e)
         {

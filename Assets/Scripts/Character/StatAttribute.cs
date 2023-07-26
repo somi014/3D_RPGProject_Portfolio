@@ -71,11 +71,6 @@ public class StatsGroup
         if (statsValue.typeFloat == false)
         {
             statsValue.integer_value += value;
-
-        }
-        else
-        {
-            Debug.Log("stat sum gets wrong typefloat value");
         }
     }
 
@@ -257,13 +252,13 @@ public class StatAttribute : MonoBehaviour
         if (isDead == true)
             return;
 
-        damage = ApplyDefence(damage);
+        damage = ApplyDefence(damage);                          //방어력에 따라 데미지 다르게
         lifePool.currentValue -= damage;
 
-        GameObject hudText = Instantiate(hudDamageText); // 생성할 텍스트 오브젝트
+        GameObject hudText = Instantiate(hudDamageText);        // 생성할 텍스트 오브젝트
         hudText.transform.parent = hudPos.transform;
-        hudText.transform.position = hudPos.position; // 표시될 위치
-        hudText.GetComponent<DamageText>().damage = damage; // 데미지 전달
+        hudText.transform.position = hudPos.position;           // 표시될 위치
+        hudText.GetComponent<DamageText>().damage = damage;     // 데미지 전달
 
         CheckDeath();
 
@@ -310,6 +305,11 @@ public class StatAttribute : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 스탯 반환
+    /// </summary>
+    /// <param name="statisticToGet"></param>
+    /// <returns></returns>
     public StatsValue TakeStats(Statistic statisticToGet)
     {
         return stats.Get(statisticToGet);
@@ -338,7 +338,7 @@ public class StatAttribute : MonoBehaviour
 
         StatAttributeUp();
 
-        if (experiencePool.currentValue >= experiencePool.maxValue.integer_value)
+        if (experiencePool.currentValue >= experiencePool.maxValue.integer_value)               //초과한 경험치가 있을 때
         {
             int left = experiencePool.currentValue - experiencePool.maxValue.integer_value;
             LevelUp(left);
@@ -373,7 +373,7 @@ public class StatAttribute : MonoBehaviour
     {
         for (int i = 0; i < stats.stats.Count; i++)
         {
-            GameEventsManager.instance.playerEvents.StatChanged(this, stats.stats[i].statisticType);
+            GameEventsManager.instance.playerEvents.StatChanged(this, stats.stats[i].statisticType);     //스탯 창 변경 표시
         }
 
         for (int i = 0; i < attributes.attributeValues.Count; i++)
@@ -383,7 +383,7 @@ public class StatAttribute : MonoBehaviour
     }
     #endregion
 
-    #region Stat Change
+    #region 스탯 변화
     public void AddStats(List<StatsValue> statsValue)
     {
         for (int i = 0; i < statsValue.Count; i++)

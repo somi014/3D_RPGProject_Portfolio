@@ -31,11 +31,9 @@ public class Quest
 
         if (this.questStepStates.Length != this.info.questStepPrefabs.Length)
         {
-            Debug.LogWarning("Quest step prefabs and Quest Step States are of different lengths." +
-                "\nQuest id " + this.info.id);
+            Debug.LogWarning("not same length Quest id " + this.info.id);
         }
     }
-
 
     public void MoveToNextStep()
     {
@@ -44,7 +42,7 @@ public class Quest
 
     public bool CurrentStepExists()
     {
-        return (currentQuestStepIndex < info.questStepPrefabs.Length);
+        return (currentQuestStepIndex < info.questStepPrefabs.Length);      
     }
 
     public void InstantiateCurrentQuestStep(Transform parentTransfom)
@@ -52,11 +50,15 @@ public class Quest
         GameObject questStepPrefab = GetCurrentQuestStepPrefab();
         if (questStepPrefab != null)
         {
-            QuestStep questStep = Object.Instantiate<GameObject>(questStepPrefab, parentTransfom).GetComponent<QuestStep>();
+            QuestStep questStep = Object.Instantiate(questStepPrefab, parentTransfom).GetComponent<QuestStep>();          
             questStep.InitializeQuestStep(info.id, currentQuestStepIndex, questStepStates[currentQuestStepIndex].state);
         }
     }
 
+    /// <summary>
+    /// 현재 퀘스트 진행 중인 퀘스트 프리팹 반환
+    /// </summary>
+    /// <returns></returns>
     private GameObject GetCurrentQuestStepPrefab()
     {
         GameObject questStepPrefab = null;
@@ -79,8 +81,7 @@ public class Quest
         }
         else
         {
-            Debug.LogWarning("Tried to access quest step data, but stepIndex was out of range: "
-                + "Quest Id = " + info.id + ", Step Index = " + stepIndex);
+            Debug.LogWarning("step index out of range Quest Id = " + info.id + ", Step Index = " + stepIndex);
         }
     }
 

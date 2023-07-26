@@ -204,6 +204,12 @@ public class ItemGrid : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 인벤토리 칸 내부인지 체크
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
     public bool PositionCheck(int x, int y)
     {
         if (x < 0 || y < 0)
@@ -220,7 +226,7 @@ public class ItemGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// 인벤토리 범위 내인지 체크
+    /// 인벤토리에서 아이템 크기에 따라 범위 체크
     /// </summary>
     /// <param name="posX">마우스 위치</param>
     /// <param name="posY"></param>

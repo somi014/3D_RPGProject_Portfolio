@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//PickUpInteractableObjec랑 합쳐도 될듯
 public class CollectCoinsQuestStep : QuestStep
 {
     private int itemsCollected = 0;

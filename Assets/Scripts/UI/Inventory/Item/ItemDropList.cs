@@ -18,7 +18,7 @@ public class ItemDropList : ScriptableObject
     public List<ItemDrop> drops;
     public int totalWeight;
 
-    [ContextMenu("Calculate weights")]
+    [ContextMenu("아이템 확률 계산")]
     public void CalculateTotalWeight()
     {
         totalWeight = 0;

@@ -10,25 +10,27 @@ public class InventoryController : MonoBehaviour
     private ItemGrid selectedItemGrid;
     private EquipmentItemSlot selectedItemSlot;
 
-    [SerializeField] PlayerStateManager mouseInput;
-    Vector2 mousePosition;
+    [SerializeField] private PlayerStateManager mouseInput;
+    private Vector2 mousePosition;
 
-    Vector2Int positionOnGrid;
-    InventoryItem selectedItem;
-    InventoryItem overlapItem;
-    RectTransform selectedItemRectTransform;
+    private Vector2Int positionOnGrid;
+    private InventoryItem selectedItem;                             //선택한 아이템
+    private InventoryItem overlapItem;                              //겹쳐지는 아이템
+    private RectTransform selectedItemRectTransform;                
 
-    [SerializeField] List<ItemData> itemDatas;
-    [SerializeField] GameObject inventoryItemPrefab;
-    [SerializeField] Transform targetCanvas;
+    [SerializeField] private List<ItemData> itemDatas;
+    [SerializeField] private GameObject inventoryItemPrefab;
+    [SerializeField] private Transform targetCanvas;
+                
+    [SerializeField] private InventoryHighlight inventoryHighlight;
+    [SerializeField] private RectTransform selectedItemParent;
 
-    [SerializeField] InventoryHighlight inventoryHighlight;
-    [SerializeField] RectTransform selectedItemParent;
+    private InventoryItem itemToHighligt;
 
-    InventoryItem itemToHighligt;
-
-    Vector2Int oldPosition;
+    private Vector2Int oldPosition;
+    
     private bool isOverUIElement;
+    public bool sellItem;                       //아이템 판매할 수 있는지
 
     public EquipmentItemSlot SelectedItemSlot
     {
@@ -49,11 +51,10 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    public bool sellItem;                       //아이템 판매할 수 있는지
-
+    #region 마우스 위치 & 하이라이터 업데이트
     private void Update()
     {
-        isOverUIElement = EventSystem.current.IsPointerOverGameObject();
+        isOverUIElement = EventSystem.current.IsPointerOverGameObject();            //인벤토리 위에 마우스가 있는지
 
         ProcessMousePosition();
 
@@ -62,11 +63,17 @@ public class InventoryController : MonoBehaviour
         HandleHighlight();              
     }
 
+    /// <summary>
+    /// 현재 마우스 위치 값
+    /// </summary>
     private void ProcessMousePosition()
     {
         mousePosition = mouseInput.mouseInputPosition;
     }
 
+    /// <summary>
+    /// 선택한 아이템 위치 마우스 위치 따라가게
+    /// </summary>
     private void ProcessMouseInput()
     {
         if (selectedItem != null)
@@ -124,6 +131,7 @@ public class InventoryController : MonoBehaviour
             inventoryHighlight.SetPosition(selectedItemGrid, selectedItem, positionOnGrid.x, positionOnGrid.y);
         }
     }
+    #endregion
 
     #region 랜덤 아이템 추가
     private void InsertRandomItem()
@@ -158,6 +166,11 @@ public class InventoryController : MonoBehaviour
     }
     #endregion
 
+    /// <summary>
+    /// 아이템 획득, 구매 시 새 아이템 오브젝트 생성
+    /// </summary>
+    /// <param name="itemData"></param>
+    /// <returns></returns>
     public InventoryItem CreateNewInventoryItem(ItemData itemData)
     {
         GameObject newItemGO = Instantiate(inventoryItemPrefab, targetCanvas);
@@ -172,6 +185,10 @@ public class InventoryController : MonoBehaviour
         return newInventoryItem;
     }
 
+    /// <summary>
+    /// 선택한 아이템 정보 업데이트
+    /// </summary>
+    /// <param name="inventoryItem"></param>
     public void SelectItem(InventoryItem inventoryItem)
     {
         selectedItem = inventoryItem;

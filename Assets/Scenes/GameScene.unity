@@ -6391,7 +6391,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1076593402}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &947629415
 MonoBehaviour:
@@ -7239,50 +7239,6 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!1 &1045551300
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1045551302}
-  - component: {fileID: 1045551301}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1045551301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1045551300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc6dcddb284836d4e84224da9a8441c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1045551302
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1045551300}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1076593402}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1068652884
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8838,7 +8794,6 @@ Transform:
   m_Children:
   - {fileID: 577311989}
   - {fileID: 1003839414}
-  - {fileID: 1045551302}
   - {fileID: 947629414}
   - {fileID: 1727831140}
   m_Father: {fileID: 0}
@@ -13816,7 +13771,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1076593402}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1727831141
 MonoBehaviour:
@@ -30253,9 +30208,6 @@ MonoBehaviour:
   cursorInputForLook: 1
   mouseInputPosition: {x: 0, y: 0, z: 0}
   uiOpen: 0
-  playerFollowCamera: {fileID: 2070925443273285200}
-  sideCamera: {fileID: 169121595}
-  respawn_tr: {fileID: 1484426779}
   stateText: {fileID: 3334783455477496307}
   MoveSpeed: 2
   SprintSpeed: 5.335
@@ -30303,6 +30255,9 @@ MonoBehaviour:
   _animator: {fileID: 0}
   stats: {fileID: 0}
   deadProcess: 0
+  playerFollowCamera: {fileID: 2070925443273285200}
+  sideCamera: {fileID: 169121595}
+  respawn_tr: {fileID: 1484426779}
   particle:
   - {fileID: 1156834194}
   - {fileID: 1670748339}

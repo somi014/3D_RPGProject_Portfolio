@@ -6,14 +6,14 @@ using TMPro;
 
 public class ItemTrigger : MonoBehaviour
 {
-    bool actionDone;
-    float actionTime = 3f;
+    private bool actionDone;
+    private float actionTime = 3f;
 
-    InterActionObject player;
+    private InterActionObject player;
 
-    [SerializeField] Renderer renderer;
-    [SerializeField] Material meterial;
-    [SerializeField] ParticleSystem particle;
+    [SerializeField] private Renderer renderer;
+    [SerializeField] private Material meterial;
+    [SerializeField] private ParticleSystem particle;
 
     IEnumerator ieInterAction;
 
@@ -56,7 +56,7 @@ public class ItemTrigger : MonoBehaviour
         if (time >= actionTime)
         {
             actionDone = true;
-            renderer.material.SetFloat("_DECALEMISSIONONOFF", 1f);
+            renderer.material.SetFloat("_DECALEMISSIONONOFF", 1f);          //석상 쉐이더 조절
             ItemEffect();
 
             GameEventsManager.instance.miscEvents.ItemInteracted();         //퀘스트 진행

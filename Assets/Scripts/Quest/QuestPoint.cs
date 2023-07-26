@@ -10,7 +10,6 @@ public class QuestPoint : MonoBehaviour
     [SerializeField] private QuestInfoSo questInfoForPoint;
     [SerializeField] private Quest questForPoint;
 
-    [Header("Config")]
     [SerializeField] private bool startPoint = false;
     [SerializeField] private bool finishPoint = false;
 
@@ -22,7 +21,6 @@ public class QuestPoint : MonoBehaviour
 
     private void Awake()
     {
-        //questId = questInfoForPoint.id;
         questIcon = GetComponentInChildren<QuestIcon>();
     }
 
@@ -38,6 +36,11 @@ public class QuestPoint : MonoBehaviour
         GameEventsManager.instance.inputEvents.onSubmitPressed -= SubmitPressed;
     }
 
+    /// <summary>
+    /// NPC 퀘스트 시작, 종료 위치 설정
+    /// </summary>
+    /// <param name="quest"></param>
+    /// <param name="npcID"></param>
     public void NPCQuestSet(Quest quest, int npcID)
     {
         questForPoint = quest;
@@ -49,6 +52,9 @@ public class QuestPoint : MonoBehaviour
         finishPoint = finish;
     }
 
+    /// <summary>
+    /// NPC 대화 -> 퀘스트 수행 또는 완료
+    /// </summary>
     private void SubmitPressed()
     {
         if (playerIsNear == false)
@@ -71,12 +77,6 @@ public class QuestPoint : MonoBehaviour
             currentQuestState = quest.state;
             questIcon.SetState(currentQuestState, startPoint, finishPoint);
         }
-        //else
-        //{
-        //    Debug.Log("npc " + gameObject.name);
-        //    currentQuestState = QuestState.NOT_YET;
-        //    questIcon.SetState(currentQuestState, startPoint, finishPoint);
-        //}
     }
 
     private void OnTriggerEnter(Collider other)

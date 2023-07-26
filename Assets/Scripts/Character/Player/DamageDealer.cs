@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 public class DamageDealer : MonoBehaviour
 {
-    bool canDealDamage;
-    //[SerializeField] bool isPlayer;
+    private bool canDealDamage;
 
-    [SerializeField] float weaponDamage;
+    [SerializeField] private float weaponDamage;
     [Range(0, 360)] public float viewAngle;
     public float viewRadius;
 
@@ -16,9 +15,9 @@ public class DamageDealer : MonoBehaviour
     public List<Transform> visibleTargets;
     public List<GameObject> hasDealtDamage;
 
-    StatAttribute stats;
+    private StatAttribute stats;
 
-    void Start()
+    private void Start()
     {
         canDealDamage = false;
         visibleTargets = new List<Transform>();
@@ -41,7 +40,7 @@ public class DamageDealer : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (canDealDamage == true)
         {
@@ -55,27 +54,20 @@ public class DamageDealer : MonoBehaviour
                     if (!hasDealtDamage.Contains(target))
                     {
                         targetStat.TakeDamage(stats.TakeStats(Statistic.Damage).integer_value);
-                        hasDealtDamage.Add(target);
+                        hasDealtDamage.Add(target);                     //이미 공격한 타겟인지 구분하기 위해
                     }
                 }
             }
         }
     }
 
-    public void StartDealDamage()
-    {
-        canDealDamage = true;
-        hasDealtDamage.Clear();
-    }
-
-    public void EndDealDamage()
-    {
-        canDealDamage = false;
-    }
-
-    void FindVisibleTargets()
+    /// <summary>
+    /// 범위 내에 타겟이 있는지
+    /// </summary>
+    private void FindVisibleTargets()
     {
         visibleTargets.Clear();
+
         // viewRadius를 반지름으로 한 원 영역 내 targetMask 레이어인 콜라이더를 모두 가져옴
         Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
 
@@ -98,8 +90,12 @@ public class DamageDealer : MonoBehaviour
         }
     }
 
-    // y축 오일러 각을 3차원 방향 벡터로 변환한다.
-    // 원본과 구현이 살짝 다름에 주의. 결과는 같다.
+    /// <summary>
+    /// y축 오일러 각을 3차원 방향 벡터로 변환
+    /// </summary>
+    /// <param name="angleDegrees"></param>
+    /// <param name="angleIsGlobal"></param>
+    /// <returns></returns>
     public Vector3 DirFromAngle(float angleDegrees, bool angleIsGlobal)
     {
         if (!angleIsGlobal)
@@ -109,4 +105,15 @@ public class DamageDealer : MonoBehaviour
 
         return new Vector3(Mathf.Cos((-angleDegrees + 90) * Mathf.Deg2Rad), 0, Mathf.Sin((-angleDegrees + 90) * Mathf.Deg2Rad));
     }
+    public void StartDealDamage()
+    {
+        canDealDamage = true;
+        hasDealtDamage.Clear();
+    }
+
+    public void EndDealDamage()
+    {
+        canDealDamage = false;
+    }
+
 }

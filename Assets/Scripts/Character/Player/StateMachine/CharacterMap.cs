@@ -18,7 +18,6 @@ public partial class PlayerStateManager
     [HideInInspector] public bool oneHandEequip;
     [HideInInspector] public bool attack;
        
-
     [Header("Movement Settings")]
     public bool analogMovement;
 
@@ -28,7 +27,7 @@ public partial class PlayerStateManager
 
     [HideInInspector] public Vector3 mouseInputPosition;
 
-    public bool uiOpen = false;
+    [HideInInspector] public bool uiOpen = false;
 
 #if ENABLE_INPUT_SYSTEM
     public void MousePositionUpdata(InputAction.CallbackContext callbackContext)
@@ -81,7 +80,9 @@ public partial class PlayerStateManager
     public void OnAttack(InputAction.CallbackContext callbackContext)
     {
         if (uiOpen == true)         //인벤토리 열려있으면 리턴
+        {
             return;
+        }
 
         if (currentState != idlingState)
         {

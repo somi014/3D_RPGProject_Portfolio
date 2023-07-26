@@ -11,7 +11,7 @@ public class UIPanelManager : MonoBehaviour
     private PlayerStateManager player;
     private StatAttribute stats;
 
-    [SerializeField] private Slider interactSlider;
+    [SerializeField] private Slider interactSlider;             //아이템 상호작용 슬라이더
     [SerializeField] private Image playerHPSlider;
     [SerializeField] private TextMeshProUGUI keyUI;
     [SerializeField] private TextMeshProUGUI qeustTxt;
@@ -27,8 +27,8 @@ public class UIPanelManager : MonoBehaviour
     private CanvasGroup restart_cg;
     private Button restart_btn;
 
-    bool inventoryOpen;
-    bool shopOpen;
+    private bool inventoryOpen;
+    private bool shopOpen;
 
     private void Awake()
     {

@@ -6,28 +6,28 @@ using UnityEngine.UI;
 
 public class EnemyAI : EnemyControl
 {
-    StatAttribute stats;
-    Animator anim;
-    StatAttribute player;
-    EnemySpawn spawn;
-    CapsuleCollider col;
+    private StatAttribute stats;
+    private Animator anim;
+    private StatAttribute player;
+    private EnemySpawn spawn;
+    private CapsuleCollider col;
 
     private bool attackLook = false;
-    private bool isAttacking = false;           //공격 중인지 체크
+    private bool isAttacking = false;                //공격 중인지 체크
     private int currencyHp = -1;
     private int attackCount;
-    [HideInInspector] public float scanRange_gui;         //GUI 범위 표시용
+    [HideInInspector] public float scanRange_gui;    //GUI 범위 표시용
 
-    public bool stop = false;           //임시
-
+    public bool stop = false;                        //테스트 용
+    
     [Header("Hp Bar UI")]
     [SerializeField] private Image hpBar;
 
-    Vector3 originPos;
+    private Vector3 originPos;
 
     [Header("Drop Item")]
-    [SerializeField] ItemDropList dropList;
-    [SerializeField] float itemDropRange = 2f;
+    [SerializeField] private ItemDropList dropList;
+    [SerializeField] private float itemDropRange = 2f;
 
     protected override void Init()
     {
@@ -140,7 +140,7 @@ public class EnemyAI : EnemyControl
             currentState = EnemyState.IDLE;
             anim.SetBool("Move", true);
         }
-        else        // 목적지까지의 거리가 매우 작다면(도착했다면) 이동중이라는 상태를 false로 만든다.
+        else        // 목적지까지의 거리가 매우 작다면(도착했다면) 이동 중이라는 상태를 false
         {
             float moveDist = Mathf.Clamp(speed * Time.deltaTime, 0, dir.magnitude);
             transform.position += dir.normalized * moveDist;
