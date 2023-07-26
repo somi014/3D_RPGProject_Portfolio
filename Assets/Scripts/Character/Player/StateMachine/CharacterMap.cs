@@ -37,11 +37,9 @@ public partial class PlayerStateManager
     }
 
     #region Movement
-    //public void OnMove(InputValue value)
     public void OnMove(InputAction.CallbackContext callbackContext)
     {
         move = callbackContext.ReadValue<Vector2>();
-        //MoveInput(callbackContext.ReadValue<Vector2>());
     }
 
     public void OnLook(InputAction.CallbackContext callbackContext)
@@ -49,7 +47,6 @@ public partial class PlayerStateManager
         if (cursorInputForLook)
         {
             look = callbackContext.ReadValue<Vector2>();
-            //LookInput(callbackContext.ReadValue<Vector2>());
         }
     }
 
@@ -57,7 +54,6 @@ public partial class PlayerStateManager
     {
         if (currentState == idlingState)
         {
-            //roll or attack 아닐때만
             jump = callbackContext.action.IsPressed();
             if (Grounded == true)
             {
@@ -84,8 +80,6 @@ public partial class PlayerStateManager
     #region Combat
     public void OnAttack(InputAction.CallbackContext callbackContext)
     {
-        //idlestate가 아니면 return?
-
         if (uiOpen == true)         //인벤토리 열려있으면 리턴
             return;
 

@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 363976819}
     m_Modifications:
+    - target: {fileID: 729844943126802870, guid: d90c349721b4e694fad80a76d87b2578, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1164602935277360391, guid: d90c349721b4e694fad80a76d87b2578, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -178,10 +182,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: PT_Fruit_Tree_01_green (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1973228233241776061, guid: d90c349721b4e694fad80a76d87b2578, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5143550703023037827, guid: d90c349721b4e694fad80a76d87b2578, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 40e61747f5ab72d409498dd1603b8289, type: 2}
+    - target: {fileID: 5719100795698308424, guid: d90c349721b4e694fad80a76d87b2578, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262691154084524410, guid: d90c349721b4e694fad80a76d87b2578, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6788130300613750309, guid: d90c349721b4e694fad80a76d87b2578, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -286,7 +302,7 @@ GameObject:
   - component: {fileID: 30753705}
   - component: {fileID: 30753704}
   - component: {fileID: 30753703}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_01 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -514,6 +530,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 363976819}
     m_Modifications:
+    - target: {fileID: 1781815169971260043, guid: 29c774dacdcc73240b0c71228fdc6f2c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2338319710486688380, guid: 29c774dacdcc73240b0c71228fdc6f2c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2764921732895710073, guid: 29c774dacdcc73240b0c71228fdc6f2c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3114434648573880518, guid: 29c774dacdcc73240b0c71228fdc6f2c, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -593,7 +621,7 @@ GameObject:
   - component: {fileID: 59343323}
   - component: {fileID: 59343322}
   - component: {fileID: 59343321}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_01 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -769,7 +797,7 @@ GameObject:
   - component: {fileID: 79019305}
   - component: {fileID: 79019304}
   - component: {fileID: 79019303}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_04 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -936,7 +964,7 @@ GameObject:
   - component: {fileID: 115617716}
   - component: {fileID: 115617715}
   - component: {fileID: 115617714}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_01 (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1529,7 +1557,7 @@ GameObject:
   - component: {fileID: 265942342}
   - component: {fileID: 265942341}
   - component: {fileID: 265942340}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_02 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2009,6 +2037,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PT_Caesars_Mushroom_01 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2ec966d90911a454c9760fa28789a4f8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ec966d90911a454c9760fa28789a4f8, type: 3}
 --- !u!4 &333149450 stripped
@@ -2103,7 +2135,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 363976819}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Environments
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2200,7 +2232,7 @@ GameObject:
   - component: {fileID: 413805558}
   - component: {fileID: 413805557}
   - component: {fileID: 413805556}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_04 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2298,7 +2330,7 @@ GameObject:
   - component: {fileID: 458851243}
   - component: {fileID: 458851242}
   - component: {fileID: 458851241}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_02 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2396,7 +2428,7 @@ GameObject:
   - component: {fileID: 471721546}
   - component: {fileID: 471721545}
   - component: {fileID: 471721544}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_01 (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2957,7 +2989,7 @@ GameObject:
   - component: {fileID: 589789350}
   - component: {fileID: 589789349}
   - component: {fileID: 589789348}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_02 (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3146,7 +3178,7 @@ GameObject:
   - component: {fileID: 616015805}
   - component: {fileID: 616015804}
   - component: {fileID: 616015803}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_04 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3484,7 +3516,7 @@ GameObject:
   - component: {fileID: 672785013}
   - component: {fileID: 672785012}
   - component: {fileID: 672785011}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_02 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3586,9 +3618,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bb37e935cca327247aa85f512def0e6d, type: 2}
+    - target: {fileID: 1781815169971260043, guid: 29c774dacdcc73240b0c71228fdc6f2c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2338319710486688380, guid: 29c774dacdcc73240b0c71228fdc6f2c, type: 3}
       propertyPath: m_Name
       value: PT_Wooden_Bridge_02 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2338319710486688380, guid: 29c774dacdcc73240b0c71228fdc6f2c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2764921732895710073, guid: 29c774dacdcc73240b0c71228fdc6f2c, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2856273374464784700, guid: 29c774dacdcc73240b0c71228fdc6f2c, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -4007,7 +4051,7 @@ GameObject:
   - component: {fileID: 789701606}
   - component: {fileID: 789701605}
   - component: {fileID: 789701604}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_02 (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4105,7 +4149,7 @@ GameObject:
   - component: {fileID: 820215228}
   - component: {fileID: 820215227}
   - component: {fileID: 820215226}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_01 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6039,7 +6083,7 @@ GameObject:
   - component: {fileID: 903082435}
   - component: {fileID: 903082434}
   - component: {fileID: 903082433}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_01 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9119,7 +9163,7 @@ GameObject:
   - component: {fileID: 1151806834}
   - component: {fileID: 1151806833}
   - component: {fileID: 1151806832}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9556,6 +9600,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 363976819}
     m_Modifications:
+    - target: {fileID: 1325251224132125718, guid: 82b2c64f4e2d5264bbf0f909cadda2fa, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2865554430876596223, guid: 82b2c64f4e2d5264bbf0f909cadda2fa, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3238166672211871197, guid: 82b2c64f4e2d5264bbf0f909cadda2fa, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5166544052048882449, guid: 82b2c64f4e2d5264bbf0f909cadda2fa, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -9603,6 +9659,10 @@ PrefabInstance:
     - target: {fileID: 5546342222124265899, guid: 82b2c64f4e2d5264bbf0f909cadda2fa, type: 3}
       propertyPath: m_Name
       value: PT_Grass_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5546342222124265899, guid: 82b2c64f4e2d5264bbf0f909cadda2fa, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82b2c64f4e2d5264bbf0f909cadda2fa, type: 3}
@@ -9666,6 +9726,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PT_Caesars_Mushroom_01 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2ec966d90911a454c9760fa28789a4f8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ec966d90911a454c9760fa28789a4f8, type: 3}
 --- !u!4 &1269491062 stripped
@@ -9685,7 +9749,7 @@ GameObject:
   - component: {fileID: 1350273857}
   - component: {fileID: 1350273856}
   - component: {fileID: 1350273855}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_04 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10585,6 +10649,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PT_Caesars_Mushroom_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2ec966d90911a454c9760fa28789a4f8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ec966d90911a454c9760fa28789a4f8, type: 3}
 --- !u!4 &1474834545 stripped
@@ -10609,7 +10677,7 @@ GameObject:
   - component: {fileID: 1481247657}
   - component: {fileID: 1481247656}
   - component: {fileID: 1481247655}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_01 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11021,6 +11089,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PT_Caesars_Mushroom_01 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2ec966d90911a454c9760fa28789a4f8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ec966d90911a454c9760fa28789a4f8, type: 3}
 --- !u!4 &1546470281 stripped
@@ -11195,6 +11267,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 2ec966d90911a454c9760fa28789a4f8, type: 3}
       propertyPath: m_Name
       value: PT_Caesars_Mushroom_01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2ec966d90911a454c9760fa28789a4f8, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ec966d90911a454c9760fa28789a4f8, type: 3}
@@ -11379,9 +11455,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3375704306057596607, guid: c2dcabc4d03cc9b4098225e59529d20d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c2dcabc4d03cc9b4098225e59529d20d, type: 3}
       propertyPath: m_Name
       value: PT_Pine_Tree_03_green
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c2dcabc4d03cc9b4098225e59529d20d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2973525204554494127, guid: c2dcabc4d03cc9b4098225e59529d20d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763076253623859830, guid: c2dcabc4d03cc9b4098225e59529d20d, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2dcabc4d03cc9b4098225e59529d20d, type: 3}
@@ -13607,7 +13699,7 @@ GameObject:
   - component: {fileID: 1723350893}
   - component: {fileID: 1723350892}
   - component: {fileID: 1723350891}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_02 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14856,7 +14948,7 @@ GameObject:
   - component: {fileID: 1923390896}
   - component: {fileID: 1923390895}
   - component: {fileID: 1923390894}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_02 (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14967,6 +15059,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 363976819}
     m_Modifications:
+    - target: {fileID: 729844943126802870, guid: d90c349721b4e694fad80a76d87b2578, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1164602935277360391, guid: d90c349721b4e694fad80a76d87b2578, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -15015,10 +15111,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: PT_Fruit_Tree_01_green
       objectReference: {fileID: 0}
+    - target: {fileID: 1973228233241776061, guid: d90c349721b4e694fad80a76d87b2578, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5143550703023037827, guid: d90c349721b4e694fad80a76d87b2578, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e58dbc3582eb6ff41b1bbd8a11960175, type: 2}
+    - target: {fileID: 5719100795698308424, guid: d90c349721b4e694fad80a76d87b2578, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262691154084524410, guid: d90c349721b4e694fad80a76d87b2578, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6788130300613750309, guid: d90c349721b4e694fad80a76d87b2578, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -16023,7 +16131,7 @@ GameObject:
   - component: {fileID: 2141967694}
   - component: {fileID: 2141967693}
   - component: {fileID: 2141967692}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_04 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17076,7 +17184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3145112126401452895}
   - component: {fileID: 166124493901434354}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Gate_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17457,7 +17565,7 @@ GameObject:
   - component: {fileID: 9157522084550702082}
   - component: {fileID: 6943616428441863533}
   - component: {fileID: 4155944347982882203}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17740,7 +17848,7 @@ GameObject:
   - component: {fileID: 4688147451180675297}
   - component: {fileID: 120459833143300689}
   - component: {fileID: 7489255597742472248}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_01 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17854,7 +17962,7 @@ GameObject:
   - component: {fileID: 464523447201031415}
   - component: {fileID: 4790487211910906132}
   - component: {fileID: 4911469579487448628}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_02 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25565,7 +25673,7 @@ GameObject:
   - component: {fileID: 8076364017322332878}
   - component: {fileID: 885743183694698452}
   - component: {fileID: 7909679710460257227}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_01 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25613,7 +25721,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7676486557895149127}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FENCE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25779,7 +25887,7 @@ GameObject:
   - component: {fileID: 1648700550538467817}
   - component: {fileID: 7593362072453684873}
   - component: {fileID: 7555801849792920566}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Gate_01_right_mobile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26193,7 +26301,7 @@ GameObject:
   - component: {fileID: 6023356890449670705}
   - component: {fileID: 5729152469000939857}
   - component: {fileID: 4395162851811638674}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_04 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26401,7 +26509,7 @@ GameObject:
   - component: {fileID: 3007363189847114000}
   - component: {fileID: 856859552379114429}
   - component: {fileID: 8477617742505672859}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_02 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27340,7 +27448,7 @@ GameObject:
   - component: {fileID: 7785216446364144053}
   - component: {fileID: 5294743552833665403}
   - component: {fileID: 9054699339444522367}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33350,7 +33458,7 @@ GameObject:
   - component: {fileID: 3473517247569266880}
   - component: {fileID: 7576469209218135015}
   - component: {fileID: 3389489223971013057}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_04 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33479,7 +33587,7 @@ GameObject:
   - component: {fileID: 8099179493871154243}
   - component: {fileID: 3696204466837495726}
   - component: {fileID: 8101076770951592145}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_01 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33666,7 +33774,7 @@ GameObject:
   - component: {fileID: 4965467688529161471}
   - component: {fileID: 7626170538336744977}
   - component: {fileID: 3035446536896231088}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_02 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34517,7 +34625,7 @@ GameObject:
   - component: {fileID: 1293184893886982724}
   - component: {fileID: 1996676885605099500}
   - component: {fileID: 6128807983518178265}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Gate_01_left_moblie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36509,7 +36617,7 @@ GameObject:
   - component: {fileID: 8085414315807676948}
   - component: {fileID: 666132223894885283}
   - component: {fileID: 925068751305363073}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Fence_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36940,7 +37048,7 @@ GameObject:
   - component: {fileID: 1375473458388796106}
   - component: {fileID: 2846058463551325154}
   - component: {fileID: 8090135540431596652}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PT_Medieval_Village_Gate_01_fixed
   m_TagString: Untagged
   m_Icon: {fileID: 0}

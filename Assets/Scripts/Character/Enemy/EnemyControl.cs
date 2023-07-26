@@ -2,12 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyType
-{
-    DRAGON1,
-    SKELETON
-}
-
 public enum EnemyState
 {
     IDLE,
@@ -20,7 +14,6 @@ public enum EnemyState
 
 public abstract class EnemyControl : MonoBehaviour
 {
-    [SerializeField] protected EnemyType enemyType;
     [SerializeField] protected EnemyState currentState = EnemyState.IDLE;
 
     [SerializeField] protected DamageDealer[] damageDealers;

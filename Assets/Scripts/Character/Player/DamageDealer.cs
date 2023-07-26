@@ -25,8 +25,6 @@ public class DamageDealer : MonoBehaviour
         hasDealtDamage = new List<GameObject>();
 
         stats = GetComponentInParent<StatAttribute>();
-
-        //StartCoroutine(FindTargetsWithDelay(0.2f));
     }
 
     private void OnEnable()

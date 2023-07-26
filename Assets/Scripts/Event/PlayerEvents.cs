@@ -30,15 +30,6 @@ public class PlayerEvents
         }
     }
 
-    //public event Action<int> onPlayerExperienceChange;
-    //public void PlayerExperienceChange(int experience)
-    //{
-    //    if (onPlayerExperienceChange != null)
-    //    {
-    //        onPlayerExperienceChange(experience);
-    //    }
-    //}
-
     public event Action<int> onGoldGained;
     public void GoldGained(int gold)
     {

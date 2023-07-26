@@ -22,7 +22,6 @@ public class FieldOfViewEditor : Editor
         Handles.DrawLine(fow.transform.position, fow.transform.position + viewAngleB * fow.viewRadius);
 
         Handles.color = Color.red;
-        //foreach (Transform visible in fow.visibleTargets)
         foreach (GameObject visible in fow.hasDealtDamage)
         {
             Handles.DrawLine(fow.transform.position, visible.transform.position);

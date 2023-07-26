@@ -36,7 +36,6 @@ public class PlayerGet : MonoBehaviour
 
         StatsValue playerStat = stats.TakeStats(Statistic.Level);
         GameEventsManager.instance.playerEvents.PlayerLevelChange(playerStat.integer_value);     //레벨 설정
-        //GameEventsManager.instance.playerEvents.PlayerExperienceChange(stats.experiencePool.currentValue);
     }
 
     private void OnDisable()
