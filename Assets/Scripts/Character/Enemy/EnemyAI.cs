@@ -173,7 +173,7 @@ public class EnemyAI : EnemyControl
                 anim.SetInteger("AttackNum", attackCount);
 
                 attackCount++;
-                if (attackCount >= maxAttackType)
+                if (attackCount >= damageDealers.Length - 1)
                 {
                     attackCount = 0;
                 }

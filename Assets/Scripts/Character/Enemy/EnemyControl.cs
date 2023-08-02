@@ -20,7 +20,6 @@ public abstract class EnemyControl : MonoBehaviour
     protected GameObject _lockTarget;
     protected Vector3 _destPos;
 
-    [SerializeField] protected int maxAttackType;
     [SerializeField] protected float attackRange;
     [SerializeField] protected float scanRange;
     [SerializeField] protected float speed;
