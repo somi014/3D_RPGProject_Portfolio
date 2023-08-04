@@ -91,11 +91,11 @@ public class EnemyAI : EnemyControl
         }
         else
         {
+            anim.SetBool("Move", true);
             Vector3 originDis = originPos - transform.position;
             if (originDis.magnitude >= 1f)
             {
                 currentState = EnemyState.CHASE;
-                anim.SetBool("Move", true);
             }
             else
             {

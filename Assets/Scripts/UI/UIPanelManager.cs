@@ -88,9 +88,13 @@ public class UIPanelManager : MonoBehaviour
     {
         if (inventoryOpen == true || shopOpen == true)
         {
+            player.cursorLocked = false;
+            player.SetCursorState(player.cursorLocked);
             return true;
         }
 
+        player.cursorLocked = true;
+            player.SetCursorState(player.cursorLocked);
         return false;
     }
 
@@ -142,6 +146,10 @@ public class UIPanelManager : MonoBehaviour
     public void OpenRestart()
     {
         restartPanel.SetActive(true);
+
+        player.cursorLocked = false;
+        player.SetCursorState(player.cursorLocked);
+
         StartCoroutine(IEAlpha(restart_cg, 0.2f));
     }
 
@@ -154,6 +162,8 @@ public class UIPanelManager : MonoBehaviour
 
         player.gameObject.SetActive(false);
 
+        player.cursorLocked = true;
+        player.SetCursorState(player.cursorLocked);
 
         player.gameObject.SetActive(true);
     }

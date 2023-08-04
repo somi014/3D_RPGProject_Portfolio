@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossAI : EnemyControl
 {
@@ -18,13 +19,18 @@ public class BossAI : EnemyControl
     [HideInInspector] public float scanRange_gui;    //GUI 범위 표시용
 
     public bool stop = false;                        //테스트 용
+    private bool jumpEnd;
 
-    //[Header("Hp Bar UI")]
-    //[SerializeField] private Image hpBar;
+    [Header("Hp Bar UI")]
+    [SerializeField] private Image hpBar;
 
     [Header("Drop Item")]
     [SerializeField] private ItemDropList dropList;
     [SerializeField] private float itemDropRange = 2f;
+
+    [Header("Particle")]
+    [SerializeField] private ParticleSystem[] attackParticle;
+    [SerializeField] private ParticleSystem groundParticle;
 
     protected override void Init()
     {
@@ -53,7 +59,8 @@ public class BossAI : EnemyControl
 
         anim.SetBool("Move", true);
 
-        //hpBar.fillAmount = Mathf.InverseLerp(0f, stats.lifePool.maxValue.integer_value, stats.lifePool.currentValue);
+        hpBar.fillAmount = Mathf.InverseLerp(0f, stats.lifePool.maxValue.integer_value, stats.lifePool.currentValue);
+        hpBar.transform.parent.gameObject.SetActive(false);
 
         col.isTrigger = false;
 
@@ -81,7 +88,7 @@ public class BossAI : EnemyControl
 
         //공격 가능 거리인지 
         bool attackRange = damageDealers[attackCount].viewRadius >= distance;
-            _lockTarget = player.gameObject;
+        _lockTarget = player.gameObject;
 
         if (attackRange == true)
         {
@@ -94,7 +101,6 @@ public class BossAI : EnemyControl
             currentState = EnemyState.CHASE;
             anim.SetBool("Move", true);
         }
-
     }
 
     protected override void UpdateMoving()
@@ -116,12 +122,12 @@ public class BossAI : EnemyControl
 
         // 이동
         Vector3 dir = _destPos - transform.position;
-        if (dir.magnitude < 0.1f)
-        {
-            currentState = EnemyState.IDLE;
-            anim.SetBool("Move", true);
-        }
-        else        // 목적지까지의 거리가 매우 작다면(도착했다면) 이동 중이라는 상태를 false
+        //if (dir.magnitude < 0.1f)
+        //{
+        //    currentState = EnemyState.IDLE;
+        //    anim.SetBool("Move", true);
+        //}
+        //else        // 목적지까지의 거리가 매우 작다면(도착했다면) 이동 중이라는 상태를 false
         {
             float moveDist = Mathf.Clamp(speed * Time.deltaTime, 0, dir.magnitude);
             transform.position += dir.normalized * moveDist;
@@ -175,6 +181,8 @@ public class BossAI : EnemyControl
         {
             ItemSpawnManager.instance.SpawnItem(SelecteRandomPosition(), dropList.GetDrop());
 
+            hpBar.gameObject.SetActive(false);
+
             gameObject.SetActive(false);
         }
     }
@@ -182,9 +190,14 @@ public class BossAI : EnemyControl
 
     protected override void UpdateHPBar()
     {
+        if (bossStart == true)
+        {
+            hpBar.transform.parent.gameObject.SetActive(true);
+        }
+
         if (currencyHp != stats.lifePool.currentValue)
         {
-            //hpBar.fillAmount = Mathf.InverseLerp(0f, stats.lifePool.maxValue.integer_value, stats.lifePool.currentValue);
+            hpBar.fillAmount = Mathf.InverseLerp(0f, stats.lifePool.maxValue.integer_value, stats.lifePool.currentValue);
             currencyHp = stats.lifePool.currentValue;
         }
 
@@ -192,7 +205,6 @@ public class BossAI : EnemyControl
         {
             deadDrop = true;
 
-            //anim.SetBool("Die", true);
             currentState = EnemyState.DIE;
 
             col.isTrigger = true;
@@ -235,6 +247,47 @@ public class BossAI : EnemyControl
 
         int temp = (attackCount - 1) < 0 ? (damageDealers.Length - 1) : (attackCount - 1);
         damageDealers[temp].EndDealDamage();
+    }
+
+    private void AttackEffect()
+    {
+        for (int i = 0; i < attackParticle.Length; i++)
+        {
+            attackParticle[i].Play();
+        }
+    }
+
+    private void GroundEffect()
+    {
+        groundParticle.Play();
+
+        //camera shake
+    }
+
+
+    public void JumpMove()
+    {
+        jumpEnd = true;
+
+        StartCoroutine(IEJumpMove());
+    }
+
+    public void JumpEnd()
+    {
+        jumpEnd = false;
+    }
+
+    private IEnumerator IEJumpMove()
+    {
+        Vector3 dir = transform.forward * 3f;
+        do
+        {
+            float moveDist = Mathf.Clamp(speed * Time.deltaTime, 0, dir.magnitude);
+            transform.position += dir.normalized * moveDist;
+
+            yield return null;
+
+        } while (jumpEnd == true && stats.isDead == false);
     }
     #endregion
 }
