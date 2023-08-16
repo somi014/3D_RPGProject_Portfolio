@@ -1,15 +1,15 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerGet : MonoBehaviour
 {
-    Inventory inventory;
-    StatAttribute stats;
+    private Inventory inventory;
+    private StatAttribute stats;
 
-    UIPanelManager uiPanelUI;
-    StatsUI statUI;
+    private UIPanelManager uiPanelUI;
+    private StatsUI statUI;
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class PlayerGet : MonoBehaviour
         statUI = FindObjectOfType<StatsUI>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         GameEventsManager.instance.playerEvents.onPlayerDead += PlayerDead;
 
@@ -33,9 +33,8 @@ public class PlayerGet : MonoBehaviour
         GameEventsManager.instance.playerEvents.onStatChanged += StatChanged;
         GameEventsManager.instance.playerEvents.onAttributeChanged += AttributeChanged;
 
-
         StatsValue playerStat = stats.TakeStats(Statistic.Level);
-        GameEventsManager.instance.playerEvents.PlayerLevelChange(playerStat.integer_value);     //·¹º§ ¼³Á¤
+        GameEventsManager.instance.playerEvents.PlayerLevelChange(playerStat.integer_value);     //ë ˆë²¨ ì„¤ì •
     }
 
     private void OnDisable()
@@ -66,17 +65,19 @@ public class PlayerGet : MonoBehaviour
     private void PlayerLevelChange(int value)
     {
         if (value > 1)
+        {
             UIPanelManager.instance.OpenLevelUpPanel(value);
+        }
     }
 
     private void GoldGained(int gold)
     {
-        inventory.AddCurrency(gold);
+        inventory.AddGold(gold);
     }
 
     private void GoldDeducted(int gold)
     {
-        inventory.SubstactCurrency(gold);
+        inventory.SubstactGold(gold);
     }
 
     private void StatChanged(StatAttribute stat, Statistic statistic)
@@ -88,5 +89,4 @@ public class PlayerGet : MonoBehaviour
     {
         statUI.SetAttribute(stat, attribute);
     }
-
 }

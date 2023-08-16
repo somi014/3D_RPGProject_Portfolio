@@ -39,7 +39,7 @@ public class CollectCoinsQuestStep : QuestStep
 
     protected override void SetQuestStepState(string state)
     {
-        this.itemsCollected = int.Parse(state);
+        itemsCollected = int.Parse(state);
         UpdateState();
     }
 }

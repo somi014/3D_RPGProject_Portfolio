@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +17,9 @@ public class InteractItemQuestStep : QuestStep
         GameEventsManager.instance.miscEvents.onItemInteracted -= ItemInteracted;
     }
 
+    /// <summary>
+    /// 퀘스트 아이템 획득
+    /// </summary>
     private void ItemInteracted()
     {
         if (itemInteracted < interactToComplete)
@@ -39,7 +42,7 @@ public class InteractItemQuestStep : QuestStep
 
     protected override void SetQuestStepState(string state)
     {
-        this.itemInteracted = int.Parse(state);
+        itemInteracted = int.Parse(state);
         UpdateState();
     }
 }

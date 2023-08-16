@@ -1,13 +1,15 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    [SerializeField] private bool loadQuestState = true;        //ÀúÀåÇÒ °ÇÁö
+    [SerializeField] 
+    private bool loadQuestState = true;                 //ì €ì¥í•  ê±´ì§€
 
-    [SerializeField] QuestInfoSo[] allQuests;                   //ÀüÃ¼ Äù½ºÆ®
+    [SerializeField]
+    private QuestInfoSo[] allQuests;                    //ì „ì²´ í€˜ìŠ¤íŠ¸
         
     private Dictionary<string, Quest> questMap;
 
@@ -37,7 +39,8 @@ public class QuestManager : MonoBehaviour
 
     private string currentQuestNum = "CurrentQuestIndex";
 
-    [SerializeField] private NPC[] npc;
+    [SerializeField]
+    private NPC[] npc;
 
     private void Awake()
     {
@@ -93,6 +96,11 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// í€˜ìŠ¤íŠ¸ ìƒíƒœ ë³€ê²½ (+ NPC icon)
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="state"></param>
     private void ChangeQuestState(string id, QuestState state)
     {
         Quest quest = GetQuestById(id);
@@ -106,7 +114,7 @@ public class QuestManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Äù½ºÆ® ÁøÇà Á¶°ÇÀÌ ¸¸Á·Çß´ÂÁö
+    /// í€˜ìŠ¤íŠ¸ ì§„í–‰ ì¡°ê±´ì´ ë§Œì¡±í–ˆëŠ”ì§€
     /// </summary>
     /// <param name="quest"></param>
     /// <returns></returns>
@@ -130,14 +138,14 @@ public class QuestManager : MonoBehaviour
         return meetsRequirements;
     }
 
-    #region Äù½ºÆ® ÇÁ·Î¼¼½º
+    #region í€˜ìŠ¤íŠ¸ í”„ë¡œì„¸ìŠ¤
     private void StartQuest(string id)
     {
         Quest quest = GetQuestById(id);
         quest.InstantiateCurrentQuestStep(this.transform);
         ChangeQuestState(quest.info.id, QuestState.IN_PROGRESS);
 
-        //Äù½ºÆ® ÀÌ¸§ º¯°æ
+        //í€˜ìŠ¤íŠ¸ ì´ë¦„ ë³€ê²½
         UIPanelManager.instance.SetQuestText(quest.info.displayName);
     }
 
@@ -170,7 +178,7 @@ public class QuestManager : MonoBehaviour
     #endregion
 
     /// <summary>
-    /// ´ÙÀ½ ÁøÇàÇÒ Äù½ºÆ®ÀÇ npc È°¼ºÈ­
+    /// ë‹¤ìŒ ì§„í–‰í•  í€˜ìŠ¤íŠ¸ì˜ npc í™œì„±í™”
     /// </summary>
     private void NextQuestNpc()
     {
@@ -194,7 +202,7 @@ public class QuestManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Äù½ºÆ® º¸»ó È¹µæ
+    /// í€˜ìŠ¤íŠ¸ ë³´ìƒ íšë“
     /// </summary>
     /// <param name="quest"></param>
     private void ClaimRewards(Quest quest)
@@ -212,22 +220,20 @@ public class QuestManager : MonoBehaviour
 
     private Dictionary<string, Quest> CreateQuestMap()
     {
-        QuestInfoSo[] allQuest = allQuests;
-
         Dictionary<string, Quest> idToQuestMap = new Dictionary<string, Quest>();
         foreach (QuestInfoSo questInfo in allQuests)
         {
             if (idToQuestMap.ContainsKey(questInfo.id))
             {
-                Debug.Log("duplicate id found when creating quest map " + questInfo.id);
+                Debug.Log("Same quest id exists : " + questInfo.id);
             }
-            idToQuestMap.Add(questInfo.id, LoadQuest(questInfo));                       //Äù½ºÆ® ·Îµå ¶Ç´Â »õ·Î »ı¼º
+            idToQuestMap.Add(questInfo.id, LoadQuest(questInfo));                       //í€˜ìŠ¤íŠ¸ ë¡œë“œ ë˜ëŠ” ìƒˆë¡œ ìƒì„±
         }
         return idToQuestMap;
     }
 
     /// <summary>
-    /// Äù½ºÆ® ¹İÈ¯
+    /// í€˜ìŠ¤íŠ¸ ë°˜í™˜
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>

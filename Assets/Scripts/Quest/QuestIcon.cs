@@ -1,48 +1,60 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 퀘스트 진행도에 따라 NPC 아이콘 표시
+/// </summary>
 public class QuestIcon : MonoBehaviour
 {
     [Header("Icons")]
-    [SerializeField] private GameObject requirementsNotMetToStartIcon;
-    [SerializeField] private GameObject canStartIcon;
-    [SerializeField] private GameObject requirementsNotMetToFinishIcon;
-    [SerializeField] private GameObject canFinishIcon;
+    [SerializeField]
+    private GameObject requirementsNotMetToStartIcon;
+    [SerializeField] 
+    private GameObject canStartIcon;
+    [SerializeField]
+    private GameObject requirementsNotMetToFinishIcon;
+    [SerializeField] 
+    private GameObject canFinishIcon;
 
-    public void SetState(QuestState newState, bool startPoint, bool finishPoint)
+    public void SetState(QuestState state, bool startPoint, bool finishPoint)
     {
-        // set all to inactive
         requirementsNotMetToStartIcon.SetActive(false);
         canStartIcon.SetActive(false);
         requirementsNotMetToFinishIcon.SetActive(false);
         canFinishIcon.SetActive(false);
 
-        // set the appropriate one to active based on the new state
-        switch (newState)
+        switch (state)
         {
             case QuestState.REQUIREMENTS_NOT_MET:
-                if (startPoint)
+                if (startPoint == true)
+                {
                     requirementsNotMetToStartIcon.SetActive(true);
+                }
                 break;
             case QuestState.CAN_START:
-                if (startPoint)
+                if (startPoint == true)
+                {
                     canStartIcon.SetActive(true);
+                }
                 break;
             case QuestState.IN_PROGRESS:
-                if (finishPoint)
+                if (finishPoint == true)
+                {
                     requirementsNotMetToFinishIcon.SetActive(true);
+                }
                 break;
             case QuestState.CAN_FINISH:
-                if (finishPoint)
+                if (finishPoint == true)
+                {
                     canFinishIcon.SetActive(true);
+                }
                 break;
             case QuestState.FINISHED:
                 break;
             case QuestState.NOT_YET:
                 break;
             default:
-                Debug.LogWarning("Quest State not recognized by switch statement for quest icon: " + newState);
                 break;
         }
     }

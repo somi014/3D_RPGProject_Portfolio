@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,26 +12,26 @@ public class Quest
 
     public Quest(QuestInfoSo questInfo)
     {
-        this.info = questInfo;
-        this.state = QuestState.REQUIREMENTS_NOT_MET;
-        this.currentQuestStepIndex = 0;
-        this.questStepStates = new QuestStepState[info.questStepPrefabs.Length];
+        info = questInfo;
+        state = QuestState.REQUIREMENTS_NOT_MET;
+        currentQuestStepIndex = 0;
+        questStepStates = new QuestStepState[info.questStepPrefabs.Length];
         for (int i = 0; i < questStepStates.Length; i++)
         {
             questStepStates[i] = new QuestStepState();
         }
     }
 
-    public Quest(QuestInfoSo questInfo, QuestState questState, int currentQuestStepIndex, QuestStepState[] questStepStates)
+    public Quest(QuestInfoSo questInfo, QuestState questState, int stepIndex, QuestStepState[] stepStates)
     {
-        this.info = questInfo;
-        this.state = questState;
-        this.currentQuestStepIndex = currentQuestStepIndex;
-        this.questStepStates = questStepStates;
+        info = questInfo;
+        state = questState;
+        currentQuestStepIndex = stepIndex;
+        questStepStates = stepStates;
 
-        if (this.questStepStates.Length != this.info.questStepPrefabs.Length)
+        if (questStepStates.Length != info.questStepPrefabs.Length)
         {
-            Debug.LogWarning("not same length Quest id " + this.info.id);
+            Debug.Log("not same length Quest id " + info.id);
         }
     }
 
@@ -45,6 +45,10 @@ public class Quest
         return (currentQuestStepIndex < info.questStepPrefabs.Length);      
     }
 
+    /// <summary>
+    /// í˜„ì¬ ì§„í–‰ ì¤‘ì¸ í€˜ìŠ¤íŠ¸ ì˜¤ë¸Œì íŠ¸ ë§Œë“¤ê¸°
+    /// </summary>
+    /// <param name="parentTransfom"></param>
     public void InstantiateCurrentQuestStep(Transform parentTransfom)
     {
         GameObject questStepPrefab = GetCurrentQuestStepPrefab();
@@ -56,7 +60,7 @@ public class Quest
     }
 
     /// <summary>
-    /// ÇöÀç Äù½ºÆ® ÁøÇà ÁßÀÎ Äù½ºÆ® ÇÁ¸®ÆÕ ¹İÈ¯
+    /// í˜„ì¬ í€˜ìŠ¤íŠ¸ ì§„í–‰ ì¤‘ì¸ í€˜ìŠ¤íŠ¸ í”„ë¦¬íŒ¹ ë°˜í™˜
     /// </summary>
     /// <returns></returns>
     private GameObject GetCurrentQuestStepPrefab()
@@ -81,7 +85,7 @@ public class Quest
         }
         else
         {
-            Debug.LogWarning("step index out of range Quest Id = " + info.id + ", Step Index = " + stepIndex);
+            Debug.Log("step index out of range Quest Id = " + info.id + ", Step Index = " + stepIndex);
         }
     }
 

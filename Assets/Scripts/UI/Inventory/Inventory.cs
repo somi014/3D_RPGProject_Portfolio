@@ -63,7 +63,7 @@ public class Inventory : MonoBehaviour
     /// 골드 추가
     /// </summary>
     /// <param name="amount"></param>
-    public void AddCurrency(int amount)
+    public void AddGold(int amount)
     {
         gold += amount;
     }
@@ -72,7 +72,7 @@ public class Inventory : MonoBehaviour
     /// 골드 차감
     /// </summary>
     /// <param name="amount"></param>
-    public void SubstactCurrency(int amount)
+    public void SubstactGold(int amount)
     {
         gold -= amount;
     }

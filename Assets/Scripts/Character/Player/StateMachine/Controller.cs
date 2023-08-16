@@ -14,7 +14,6 @@ public partial class PlayerStateManager : MonoBehaviour
             _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         }
     }
-
     private void Start()
     {
         _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
@@ -49,7 +48,9 @@ public partial class PlayerStateManager : MonoBehaviour
         if (stats.isDead == true)
         {
             if (deadProcess == false)
+            {
                 PlayerDie();
+            }
             return;
         }
 
@@ -410,5 +411,4 @@ public partial class PlayerStateManager : MonoBehaviour
     {
         level_particle.Play();
     }
-
 }

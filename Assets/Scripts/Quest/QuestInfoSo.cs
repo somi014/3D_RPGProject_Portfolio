@@ -1,11 +1,11 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "QuestInfoSO")]
 public class QuestInfoSo : ScriptableObject
 {
-    [SerializeField] public string id { get; set; }
+    public string id { get; set; }
 
     [Header("General")]
     public string displayName;
@@ -13,7 +13,7 @@ public class QuestInfoSo : ScriptableObject
     [Header("Requirements")]
     public int levelRequirement;
 
-    public QuestInfoSo[] questPrerequisites;
+    public QuestInfoSo[] questPrerequisites;        //선행 퀘스트
 
     [Header("Steps")]
     public GameObject[] questStepPrefabs;
@@ -26,12 +26,15 @@ public class QuestInfoSo : ScriptableObject
     public int startNPCID;
     public int finishNPCID;
 
-
-
+    /// <summary>
+    /// 인스펙터 데이터 관리
+    /// </summary>
     private void OnValidate()
     {
-        id = this.name;
+        if(string.IsNullOrEmpty(id) == true)
+        {
+            Debug.Log("Quest id is empty");
+        }
         UnityEditor.EditorUtility.SetDirty(this);
-
     }
 }

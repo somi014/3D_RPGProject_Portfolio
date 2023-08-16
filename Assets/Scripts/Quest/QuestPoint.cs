@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,11 +7,15 @@ using UnityEngine;
 public class QuestPoint : MonoBehaviour
 {
     [Header("Quest")]
-    [SerializeField] private QuestInfoSo questInfoForPoint;
-    [SerializeField] private Quest questForPoint;
+    [SerializeField] 
+    private QuestInfoSo questInfoForPoint;
+    [SerializeField]
+    private Quest questForPoint;
 
-    [SerializeField] private bool startPoint = false;
-    [SerializeField] private bool finishPoint = false;
+    [SerializeField]
+    private bool startPoint = false;
+    [SerializeField]
+    private bool finishPoint = false;
 
     private bool playerIsNear = false;
     private string questId;
@@ -24,7 +28,7 @@ public class QuestPoint : MonoBehaviour
         questIcon = GetComponentInChildren<QuestIcon>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         GameEventsManager.instance.questEvents.onQuestStateChange += QuestStateChange;
         GameEventsManager.instance.inputEvents.onSubmitPressed += SubmitPressed;
@@ -37,7 +41,7 @@ public class QuestPoint : MonoBehaviour
     }
 
     /// <summary>
-    /// NPC Äù½ºÆ® ½ÃÀÛ, Á¾·á À§Ä¡ ¼³Á¤
+    /// NPC í€˜ìŠ¤íŠ¸ ì‹œì‘, ì¢…ë£Œ ìœ„ì¹˜ ì„¤ì •
     /// </summary>
     /// <param name="quest"></param>
     /// <param name="npcID"></param>
@@ -53,12 +57,14 @@ public class QuestPoint : MonoBehaviour
     }
 
     /// <summary>
-    /// NPC ´ëÈ­ -> Äù½ºÆ® ¼öÇà ¶Ç´Â ¿Ï·á
+    /// NPC ëŒ€í™” -> í€˜ìŠ¤íŠ¸ ìˆ˜í–‰ ë˜ëŠ” ì™„ë£Œ
     /// </summary>
     private void SubmitPressed()
     {
         if (playerIsNear == false)
+        {
             return;
+        }
 
         if (currentQuestState.Equals(QuestState.CAN_START) == true && startPoint == true)
         {
@@ -91,7 +97,6 @@ public class QuestPoint : MonoBehaviour
     {
         if (other.CompareTag("Player") == true)
         {
-
             playerIsNear = false;
         }
     }
