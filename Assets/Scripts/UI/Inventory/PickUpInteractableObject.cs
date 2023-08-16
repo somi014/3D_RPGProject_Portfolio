@@ -1,12 +1,14 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PickUpInteractableObject : MonoBehaviour
 {
-    [SerializeField] int coinCount;
-    [SerializeField] ItemData itemData;
+    [SerializeField]
+    private int coinCount;
+    [SerializeField] 
+    private ItemData itemData;
 
     private void Start()
     {
@@ -15,7 +17,7 @@ public class PickUpInteractableObject : MonoBehaviour
 
     public void PickUp(Inventory inventory)
     {
-        GameEventsManager.instance.miscEvents.ItemCollected();           //¾ÆÀÌÅÛ È¹µæ ÀÌº¥Æ® ¾Ë¸²
+        GameEventsManager.instance.miscEvents.ItemCollected();           //ì•„ì´í…œ íšë“ ì´ë²¤íŠ¸ ì•Œë¦¼
 
         GameEventsManager.instance.playerEvents.GoldGained(coinCount);
 

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,27 +10,33 @@ public class InventoryController : MonoBehaviour
     private ItemGrid selectedItemGrid;
     private EquipmentItemSlot selectedItemSlot;
 
-    [SerializeField] private PlayerStateManager mouseInput;
+    [SerializeField] 
+    private PlayerStateManager mouseInput;
     private Vector2 mousePosition;
 
     private Vector2Int positionOnGrid;
-    private InventoryItem selectedItem;                             //¼±ÅÃÇÑ ¾ÆÀÌÅÛ
-    private InventoryItem overlapItem;                              //°ãÃÄÁö´Â ¾ÆÀÌÅÛ
+    private InventoryItem selectedItem;                             //ì„ íƒí•œ ì•„ì´í…œ
+    private InventoryItem overlapItem;                              //ê²¹ì³ì§€ëŠ” ì•„ì´í…œ
     private RectTransform selectedItemRectTransform;                
 
-    [SerializeField] private List<ItemData> itemDatas;
-    [SerializeField] private GameObject inventoryItemPrefab;
-    [SerializeField] private Transform targetCanvas;
+    [SerializeField]
+    private List<ItemData> itemDatas;
+    [SerializeField] 
+    private GameObject inventoryItemPrefab;
+    [SerializeField]
+    private Transform targetCanvas;
                 
-    [SerializeField] private InventoryHighlight inventoryHighlight;
-    [SerializeField] private RectTransform selectedItemParent;
+    [SerializeField]
+    private InventoryHighlight inventoryHighlight;
+    [SerializeField] 
+    private RectTransform selectedItemParent;
 
     private InventoryItem itemToHighligt;
 
     private Vector2Int oldPosition;
     
     private bool isOverUIElement;
-    public bool sellItem;                       //¾ÆÀÌÅÛ ÆÇ¸ÅÇÒ ¼ö ÀÖ´ÂÁö
+    public bool sellItem;                       //ì•„ì´í…œ íŒë§¤í•  ìˆ˜ ìˆëŠ”ì§€
 
     public EquipmentItemSlot SelectedItemSlot
     {
@@ -51,10 +57,10 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    #region ¸¶¿ì½º À§Ä¡ & ÇÏÀÌ¶óÀÌÅÍ ¾÷µ¥ÀÌÆ®
+    #region ë§ˆìš°ìŠ¤ ìœ„ì¹˜ & í•˜ì´ë¼ì´í„° ì—…ë°ì´íŠ¸
     private void Update()
     {
-        isOverUIElement = EventSystem.current.IsPointerOverGameObject();            //ÀÎº¥Åä¸® À§¿¡ ¸¶¿ì½º°¡ ÀÖ´ÂÁö
+        isOverUIElement = EventSystem.current.IsPointerOverGameObject();            //ì¸ë²¤í† ë¦¬ ìœ„ì— ë§ˆìš°ìŠ¤ê°€ ìˆëŠ”ì§€
 
         ProcessMousePosition();
 
@@ -64,7 +70,7 @@ public class InventoryController : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇöÀç ¸¶¿ì½º À§Ä¡ °ª
+    /// í˜„ì¬ ë§ˆìš°ìŠ¤ ìœ„ì¹˜ ê°’
     /// </summary>
     private void ProcessMousePosition()
     {
@@ -72,7 +78,7 @@ public class InventoryController : MonoBehaviour
     }
 
     /// <summary>
-    /// ¼±ÅÃÇÑ ¾ÆÀÌÅÛ À§Ä¡ ¸¶¿ì½º À§Ä¡ µû¶ó°¡°Ô
+    /// ì„ íƒí•œ ì•„ì´í…œ ìœ„ì¹˜ ë§ˆìš°ìŠ¤ ìœ„ì¹˜ ë”°ë¼ê°€ê²Œ
     /// </summary>
     private void ProcessMouseInput()
     {
@@ -83,7 +89,7 @@ public class InventoryController : MonoBehaviour
     }
 
     /// <summary>
-    /// ¾ÆÀÌÅÛ ÇÏÀÌ¶óÀÌÅÍ
+    /// ì•„ì´í…œ í•˜ì´ë¼ì´í„°
     /// </summary>
     private void HandleHighlight()
     {
@@ -101,10 +107,14 @@ public class InventoryController : MonoBehaviour
 
         Vector2Int positionOnGrid = GetTielGridPosition();
         if (positionOnGrid == oldPosition)
+        {
             return;
+        }
 
         if (selectedItemGrid.PositionCheck(positionOnGrid.x, positionOnGrid.y) == false)
+        {
             return;
+        }
 
         oldPosition = positionOnGrid;
 
@@ -133,11 +143,13 @@ public class InventoryController : MonoBehaviour
     }
     #endregion
 
-    #region ·£´ı ¾ÆÀÌÅÛ Ãß°¡
+    #region ëœë¤ ì•„ì´í…œ ì¶”ê°€
     private void InsertRandomItem()
     {
         if (selectedItemGrid == null)
+        {
             return;
+        }
 
         CreateRandomItem();
 
@@ -148,7 +160,9 @@ public class InventoryController : MonoBehaviour
     private void CreateRandomItem()
     {
         if (selectedItem != null)
+        {
             return;
+        }
 
         int selectedItemID = UnityEngine.Random.Range(0, itemDatas.Count);
         InventoryItem newItem = CreateNewInventoryItem(itemDatas[selectedItemID]);
@@ -160,14 +174,16 @@ public class InventoryController : MonoBehaviour
         Vector2Int? posOnGrid = selectedItemGrid.FindSpaceForObject(itemToInsert.itemData);
 
         if (posOnGrid == null)
+        {
             return;
+        }
 
         selectedItemGrid.PlaceItem(itemToInsert, posOnGrid.Value.x, posOnGrid.Value.y);
     }
     #endregion
 
     /// <summary>
-    /// ¾ÆÀÌÅÛ È¹µæ, ±¸¸Å ½Ã »õ ¾ÆÀÌÅÛ ¿ÀºêÁ§Æ® »ı¼º
+    /// ì•„ì´í…œ íšë“, êµ¬ë§¤ ì‹œ ìƒˆ ì•„ì´í…œ ì˜¤ë¸Œì íŠ¸ ìƒì„±
     /// </summary>
     /// <param name="itemData"></param>
     /// <returns></returns>
@@ -175,18 +191,17 @@ public class InventoryController : MonoBehaviour
     {
         GameObject newItemGO = Instantiate(inventoryItemPrefab, targetCanvas);
 
-        InventoryItem newInventoryItem = newItemGO.GetComponent<InventoryItem>();
-
         RectTransform newItemRectTransform = newItemGO.GetComponent<RectTransform>();
         newItemRectTransform.SetParent(targetCanvas);
 
+        InventoryItem newInventoryItem = newItemGO.GetComponent<InventoryItem>();
         newInventoryItem.Set(itemData);
 
         return newInventoryItem;
     }
 
     /// <summary>
-    /// ¼±ÅÃÇÑ ¾ÆÀÌÅÛ Á¤º¸ ¾÷µ¥ÀÌÆ®
+    /// ì„ íƒí•œ ì•„ì´í…œ ì •ë³´ ì—…ë°ì´íŠ¸
     /// </summary>
     /// <param name="inventoryItem"></param>
     public void SelectItem(InventoryItem inventoryItem)
@@ -197,18 +212,18 @@ public class InventoryController : MonoBehaviour
     }
 
     /// <summary>
-    /// ¸¶¿ì½º Å¬¸¯ÇßÀ» ¶§
+    /// ë§ˆìš°ìŠ¤ í´ë¦­í–ˆì„ ë•Œ
     /// </summary>
     /// <param name="context"></param>
     public void ProcessLeftMouseButtonPress(InputAction.CallbackContext context)
     {
-        if (sellItem == true)                                           //»óÁ¡ ÆÈ±â¿¡ ¸¶¿ì½º°¡ ÀÖÀ» ¶§
+        if (sellItem == true)                                           //ìƒì  íŒ”ê¸°ì— ë§ˆìš°ìŠ¤ê°€ ìˆì„ ë•Œ
         {
             SellInventoryItem();
             return;
         }
 
-        if (selectedItemGrid == null && selectedItemSlot == null)       //ÀÎº¥Åä¸® ¶Ç´Â Àåºñ Ã¢¿¡ ¸¶¿ì½º°¡ ¾øÀ» ¶§
+        if (selectedItemGrid == null && selectedItemSlot == null)       //ì¸ë²¤í† ë¦¬ ë˜ëŠ” ì¥ë¹„ ì°½ì— ë§ˆìš°ìŠ¤ê°€ ì—†ì„ ë•Œ
         {
             if (isOverUIElement)
             {
@@ -229,7 +244,7 @@ public class InventoryController : MonoBehaviour
     }
 
     /// <summary>
-    /// ¾ÆÀÌÅÛ ÆÇ¸ÅÇÏ±â
+    /// ì•„ì´í…œ íŒë§¤í•˜ê¸°
     /// </summary>
     private void SellInventoryItem()
     {
@@ -245,12 +260,14 @@ public class InventoryController : MonoBehaviour
     }
     
     /// <summary>
-    /// ¾ÆÀÌÅÛ ¹ö¸®±â
+    /// ì•„ì´í…œ ë²„ë¦¬ê¸°
     /// </summary>
     private void ThrowItemAwayProcess()
     {
         if (selectedItem == null)
+        {
             return;
+        }
 
         Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 
@@ -268,7 +285,7 @@ public class InventoryController : MonoBehaviour
     }
 
     /// <summary>
-    /// ¾ÆÀÌÅÛ ÀåºñÇÏ±â
+    /// ì•„ì´í…œ ì¥ë¹„í•˜ê¸°
     /// </summary>
     private void ItemSlotInput()
     {
@@ -281,12 +298,14 @@ public class InventoryController : MonoBehaviour
     private void PlaceItemIntoSlot()
     {
         if (selectedItemSlot.Check(selectedItem) == false)
+        {
             return;
+        }
 
         SoundManager.instance.Play(0);
 
         InventoryItem replaceItem = selectedItemSlot.ReplaceItem(selectedItem);
-        if (replaceItem == null)        //ÀåÂøÇÏ°í ÀÖ´ø ¾ÆÀÌÅÛÀÌ ¾øÀ¸¸é
+        if (replaceItem == null)        //ì¥ì°©í•˜ê³  ìˆë˜ ì•„ì´í…œì´ ì—†ìœ¼ë©´
         {
             NullSelectedItem();
         }
@@ -297,7 +316,7 @@ public class InventoryController : MonoBehaviour
     }
 
     /// <summary>
-    /// ¼±ÅÃÇÑ ¾ÆÀÌÅÛ ÃÊ±âÈ­
+    /// ì„ íƒí•œ ì•„ì´í…œ ì´ˆê¸°í™”
     /// </summary>
     private void NullSelectedItem()
     {
@@ -306,7 +325,7 @@ public class InventoryController : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛ ³õ±â
+    /// ì¸ë²¤í† ë¦¬ì— ì•„ì´í…œ ë†“ê¸°
     /// </summary>
     private void ItemGridInput()
     {
@@ -326,7 +345,7 @@ public class InventoryController : MonoBehaviour
     }
 
     /// <summary>
-    /// ¸¶¿ì½º À§Ä¡¸¦ ¾ÆÀÌÅÛ Å©±â¿¡ µû¶ó °ª º¯È¯ ÈÄ ÀÎº¥Åä¸®¿¡¼­ À§Ä¡ ¹İÈ¯
+    /// ë§ˆìš°ìŠ¤ ìœ„ì¹˜ë¥¼ ì•„ì´í…œ í¬ê¸°ì— ë”°ë¼ ê°’ ë³€í™˜ í›„ ì¸ë²¤í† ë¦¬ì—ì„œ ìœ„ì¹˜ ë°˜í™˜
     /// </summary>
     /// <returns></returns>
     Vector2Int GetTielGridPosition()
@@ -342,13 +361,15 @@ public class InventoryController : MonoBehaviour
     }
 
     /// <summary>
-    /// ¾ÆÀÌÅÛ À§Ä¡ ½ÃÅ°±â
+    /// ì•„ì´í…œ ìœ„ì¹˜ ì‹œí‚¤ê¸°
     /// </summary>
     private void PlaceItemInput()
     {
         if (selectedItemGrid.BoundrayCheck(positionOnGrid.x, positionOnGrid.y,
                                            selectedItem.itemData.sizeWidth, selectedItem.itemData.sizeHeight) == false)
+        {
             return;
+        }
 
         if (selectedItemGrid.CheckOverlap(positionOnGrid.x, positionOnGrid.y,
             selectedItem.itemData.sizeWidth, selectedItem.itemData.sizeHeight, ref overlapItem) == false)
@@ -357,7 +378,7 @@ public class InventoryController : MonoBehaviour
             return;
         }
 
-        if (overlapItem != null)                    //°ãÄ¡´Â ¾ÆÀÌÅÛÀ» ÀÎº¥Åä¸®¿¡¼­ Á¦°Å
+        if (overlapItem != null)                    //ê²¹ì¹˜ëŠ” ì•„ì´í…œì„ ì¸ë²¤í† ë¦¬ì—ì„œ ì œê±°
         {
             selectedItemGrid.ClearGridFromItem(overlapItem);
         }
@@ -367,7 +388,7 @@ public class InventoryController : MonoBehaviour
 
         if (overlapItem != null)
         {
-            selectedItem = overlapItem;             //°ãÄ¡´Â ¾ÆÀÌÅÛÀ» ¼±ÅÃÇÑ ¾ÆÀÌÅÛÀ¸·Î (¿Å±â±â)
+            selectedItem = overlapItem;             //ê²¹ì¹˜ëŠ” ì•„ì´í…œì„ ì„ íƒí•œ ì•„ì´í…œìœ¼ë¡œ (ì˜®ê¸°ê¸°)
             selectedItemRectTransform = selectedItem.GetComponent<RectTransform>();
             selectedItemRectTransform.SetParent(selectedItemParent);
             overlapItem = null;

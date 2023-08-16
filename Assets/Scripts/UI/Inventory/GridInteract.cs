@@ -6,9 +6,8 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(ItemGrid))]
 public class GridInteract : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    InventoryController inventoryController;
-    ItemGrid  itemGrid;
-
+    private InventoryController inventoryController;
+    private ItemGrid  itemGrid;
 
     private void Start()
     {
@@ -25,6 +24,4 @@ public class GridInteract : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         inventoryController.SelectedItemGrid = null;
     }
-
-    
 }

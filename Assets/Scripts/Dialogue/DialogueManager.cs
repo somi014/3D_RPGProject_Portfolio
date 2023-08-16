@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,21 +14,21 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI UITalkText;
     public TextMeshProUGUI UIInfoText;
     public Image portraitImg;
-    public GameObject scanObject;
 
     private string charName;
     private int talkIndex;
     private int questTalkIndex;
     private int questStep;
-    private bool isAction;       //´ëÈ­Ã¢ È°¼ºÈ­ »óÅÂ 
+    private bool isAction;       //ëŒ€í™”ì°½ í™œì„±í™” ìƒíƒœ 
     private bool isQuestTalk;
 
-    Dictionary<int, string[]> talkData;
-    Dictionary<int, Sprite> portraitData;
+    private Dictionary<int, string[]> talkData;
+    private Dictionary<int, Sprite> portraitData;
     public Sprite[] portraitArr;
-    const int playerface = 0;
-    const int npcFemaleface = 1;
-    const int npcMaleface = 2;
+
+    private const int playerface = 0;
+    private const int npcFemaleface = 1;
+    private const int npcMaleface = 2;
 
     void Awake()
     {
@@ -44,38 +44,32 @@ public class DialogueManager : MonoBehaviour
 
     void GenerateData()
     {
-        //´ë»ç »ı¼º (obj id, ´ëÈ­ )
-        talkData.Add(1000, new string[] { "¾È³çÇÏ¼¼¿ä:" + playerface, "¸ğÇè°¡ÀÎ°¡?:" + npcFemaleface, });
-        talkData.Add(2000, new string[] { "¸ø º¸´ø ¾ó±¼ÀÌ±º:" + npcMaleface, "¸¶À»À» Ã£°í ÀÖ¾î¿ä\n¾îµğ·Î °¡¾ßÇÏÁÒ?:"+ playerface,
-                                    "ÀÌ ¾ÕÀ¸·Î Âß °¡¸é ¸¶À»ÀÌ¾ß\nÇÏÁö¸¸ ¸ó½ºÅÍ°¡ ±æÀ» ¸·°í ÀÖÁö:" + npcMaleface});
+        //ëŒ€ì‚¬ ìƒì„± (obj id, ëŒ€í™” )
+        talkData.Add(1000, new string[] { "ì•ˆë…•í•˜ì„¸ìš”:" + playerface, "ëª¨í—˜ê°€ì¸ê°€?:" + npcFemaleface, });
+        talkData.Add(2000, new string[] { "ëª» ë³´ë˜ ì–¼êµ´ì´êµ°:" + npcMaleface, "ë§ˆì„ì„ ì°¾ê³  ìˆì–´ìš”\nì–´ë””ë¡œ ê°€ì•¼í•˜ì£ ?:"+ playerface,
+                                    "ì´ ì•ìœ¼ë¡œ ì­‰ ê°€ë©´ ë§ˆì„ì´ì•¼\ní•˜ì§€ë§Œ ëª¬ìŠ¤í„°ê°€ ê¸¸ì„ ë§‰ê³  ìˆì§€:" + npcMaleface});
 
 
-        //Äù½ºÆ®¿ë ´ëÈ­(obj id + quest id + questIndex(¼ø¼­¹øÈ£))
-        //Äù½ºÆ®¿ë ´ëÈ­(obj id + quest id)
+        //í€˜ìŠ¤íŠ¸ìš© ëŒ€í™”(obj id + quest id + questIndex(ìˆœì„œë²ˆí˜¸))
 
-        //10¹ø Äù½ºÆ® 
-        talkData.Add(1000 + 10, new string[] { "Àú±â..:" + npcFemaleface, "¹«½¼ ÀÏÀÌÁÒ?:" +  playerface, "¼®»óµéÀÌ ¿À¿°µÇ¾ú¾î¿ä:"+ npcFemaleface,
-                                        "¼®»óÀÇ Á¶°¢À» ¸ğÀ¸¸é Á¤È­ÇÒ ¼ö ÀÖ¾î¿ä \nÀú Á» µµ¿ÍÁÖ¼¼¿ä:" + npcFemaleface,
-                                        "Á¶°¢À» ¸ğ¾Æ¼­ Á¦ Ä£±¸¿¡°Ô °¡Á®´Ù ÁÖ¼¼¿ä:" + npcFemaleface, });
-        talkData.Add(1000 + 10 + 1, new string[] { "Á¶°¢À» ¸ğ¾ÆÁÖ¼¼¿ä \nºÎÅ¹µå·Á¿ä:" + npcFemaleface, });
-        talkData.Add(2000 + 10 + 1, new string[] { "¾ÆÁ÷ ´Ù ¸ğÀ¸Áö ¸øÇß±º¿ä:" + npcMaleface, });
-        talkData.Add(2000 + 10 + 2, new string[] { "¸ğµÎ ¸ğ¾Æ ¿À¼Ì±º¿ä \n°¨»çÇØ¿ä:" + npcMaleface, });
+        //10ë²ˆ í€˜ìŠ¤íŠ¸ 
+        talkData.Add(1000 + 10, new string[] { "ì €ê¸°..:" + npcFemaleface, "ë¬´ìŠ¨ ì¼ì´ì£ ?:" +  playerface, "ì„ìƒë“¤ì´ ì˜¤ì—¼ë˜ì—ˆì–´ìš”:"+ npcFemaleface,
+                                                "ì„ìƒì˜ ì¡°ê°ì„ ëª¨ìœ¼ë©´ ì •í™”í•  ìˆ˜ ìˆì–´ìš” \nì € ì¢€ ë„ì™€ì£¼ì„¸ìš”:" + npcFemaleface, "ì¡°ê°ì„ ëª¨ì•„ì„œ ì œ ì¹œêµ¬ì—ê²Œ ê°€ì ¸ë‹¤ ì£¼ì„¸ìš”:" + npcFemaleface, });
+        talkData.Add(1000 + 10 + 1, new string[] { "ì¡°ê°ì„ ëª¨ì•„ì£¼ì„¸ìš” \në¶€íƒë“œë ¤ìš”:" + npcFemaleface, });
+        talkData.Add(2000 + 10 + 1, new string[] { "ì•„ì§ ë‹¤ ëª¨ìœ¼ì§€ ëª»í–ˆêµ°ìš”:" + npcMaleface, });
+        talkData.Add(2000 + 10 + 2, new string[] { "ëª¨ë‘ ëª¨ì•„ ì˜¤ì…¨êµ°ìš” \nê°ì‚¬í•´ìš”:" + npcMaleface, });
 
-        //20¹ø Äù½ºÆ®
-        talkData.Add(2000 + 20, new string[] { "ÇÏ³ª ´õ ºÎÅ¹ÇÏ°í ½ÍÀºµ¥ ±¦ÂúÀ»±î¿ä?:" + npcMaleface, "¹«½¼ ÀÏÀÎ°¡¿ä?:" + playerface, "¼®»óÀ» Á¤È­ÇØÁÖ¼¼¿ä:" + npcMaleface, });
-        talkData.Add(2000 + 20 + 1, new string[] { "ºÎÅ¹ÇØ¿ä:" + npcMaleface, }); //Äù½ºÆ® ¿Ï·á Àü¿¡ ´ëÈ­¸¦ °É¾úÀ» ¶§
-        talkData.Add(1000 + 20 + 1, new string[] { "¼®»óÀ» Á¤È­ÇÏ°í Ä£±¸¿¡°Ô ¾Ë·ÁÁÖ¼¼¿ä:" + npcFemaleface, }); //Äù½ºÆ® ¿Ï·á Àü¿¡ ´ëÈ­¸¦ °É¾úÀ» ¶§
-        //talkData.Add(300 + 20, new string[] { "¿­¼è¸¦ Ã£¾Ò´Ù", });
-        talkData.Add(2000 + 20 + 2, new string[] { "°¨»çÇØ¿ä!:" + npcMaleface, "º° ¸»¾¸À»¿ä!:" + playerface, });
+        //20ë²ˆ í€˜ìŠ¤íŠ¸
+        talkData.Add(2000 + 20, new string[] { "í•˜ë‚˜ ë” ë¶€íƒí•˜ê³  ì‹¶ì€ë° ê´œì°®ì„ê¹Œìš”?:" + npcMaleface, "ë¬´ìŠ¨ ì¼ì¸ê°€ìš”?:" + playerface, "ì„ìƒì„ ì •í™”í•´ì£¼ì„¸ìš”:" + npcMaleface, });
+        talkData.Add(2000 + 20 + 1, new string[] { "ë¶€íƒí•´ìš”:" + npcMaleface, });                                    
+        talkData.Add(1000 + 20 + 1, new string[] { "ì„ìƒì„ ì •í™”í•˜ê³  ì¹œêµ¬ì—ê²Œ ì•Œë ¤ì£¼ì„¸ìš”:" + npcFemaleface, });         
+        talkData.Add(2000 + 20 + 2, new string[] { "ê°ì‚¬í•´ìš”!:" + npcMaleface, "ë³„ ë§ì”€ì„ìš”!:" + playerface, });
 
 
-        //30¹ø Äù½ºÆ® 
-        //talkData.Add(1000 + 30, new string[] { "¿­¼è¸¦ Ã£¾ÆÁà¼­ °í¸¶¿ö¿ä!:0", "º° ¸»¾¸À»¿ä!:2", });
-
-        //ÃÊ»óÈ­ »ı¼º (obj id + portrait number)
-        portraitData.Add(1000 + 0, portraitArr[playerface]); //0¹ø ÀÎµ¦½º¿¡ ÀúÀåµÈ ÃÊ»óÈ­¸¦ id = 1000°ú mapping
+        //ì´ˆìƒí™” ìƒì„± (obj id + portrait number)
+        portraitData.Add(1000 + 0, portraitArr[playerface]);        //0ë²ˆ ì¸ë±ìŠ¤ì— ì €ì¥ëœ ì´ˆìƒí™”ë¥¼ id = 1000ê³¼ mapping
         portraitData.Add(1000 + 1, portraitArr[npcFemaleface]);
-        portraitData.Add(1000 + 2, portraitArr[npcMaleface]); //2¹ø ÀÎµ¦½º¿¡ ÀúÀåµÈ ÃÊ»óÈ­¸¦ id = 1002°ú mapping
+        portraitData.Add(1000 + 2, portraitArr[npcMaleface]); 
 
         portraitData.Add(2000 + 0, portraitArr[0]);
         portraitData.Add(2000 + 1, portraitArr[1]);
@@ -84,45 +78,47 @@ public class DialogueManager : MonoBehaviour
 
     public string GetTalk(int id, int talkIndex)
     {
-        //1. ÇØ´ç Äù½ºÆ® id¿¡¼­ Äù½ºÆ®index(¼ø¼­)¿¡ ÇØ´çÇÏ´Â ´ë»ç°¡ ¾øÀ½
-        if (!talkData.ContainsKey(id))
+        if (talkData.ContainsKey(id) == false)                          //í•´ë‹¹ í€˜ìŠ¤íŠ¸ idì—ì„œ í€˜ìŠ¤íŠ¸index(ìˆœì„œ)ì— í•´ë‹¹í•˜ëŠ” ëŒ€ì‚¬ê°€ ì—†ìŒ
         {
-            //ÇØ´ç Äù½ºÆ® ÀÚÃ¼¿¡ ´ë»ç°¡ ¾øÀ» ¶§ -> ±âº» ´ë»ç¸¦ ºÒ·¯¿È (½Ê, ÀÏÀÇ ÀÚ¸® ºÎºĞ Á¦°Å )
-            if (!talkData.ContainsKey(id - id % 10))
+            //í•´ë‹¹ í€˜ìŠ¤íŠ¸ ìì²´ì— ëŒ€ì‚¬ê°€ ì—†ì„ ë•Œ -> ê¸°ë³¸ ëŒ€ì‚¬ë¥¼ ë¶ˆëŸ¬ì˜´ (ì‹­, ì¼ì˜ ìë¦¬ ë¶€ë¶„ ì œê±°)
+            if (talkData.ContainsKey(id - id % 10) == false)
             {
                 isQuestTalk = false;
-                return GetTalk(id - id % 100, talkIndex);   //GET FIRST TALK
+                return GetTalk(id - id % 100, talkIndex);               //ê¸°ë³¸ ëŒ€í™”
             }
-
             else
             {
-                return GetTalk(id - id % 10, talkIndex);    //GET FIRST QUEST TALK
+                return GetTalk(id - id % 10, talkIndex);                //í€˜ìŠ¤íŠ¸ ëŒ€í™”
             }
         }
-
-        //2. ÇØ´ç Äù½ºÆ® id¿¡¼­ Äù½ºÆ®index(¼ø¼­)¿¡ ÇØ´çÇÏ´Â ´ë»ç°¡ ÀÖÀ½
-        if (talkIndex == talkData[id].Length)
+   
+        if (talkIndex == talkData[id].Length)                           //í•´ë‹¹ í€˜ìŠ¤íŠ¸ idì—ì„œ í€˜ìŠ¤íŠ¸index(ìˆœì„œ)ì— í•´ë‹¹í•˜ëŠ” ëŒ€ì‚¬ê°€ ìˆìŒ
+        {
             return null;
+        }
         else
         {
-            return talkData[id][talkIndex]; //ÇØ´ç ¾ÆÀÌµğÀÇ ÇØ´ç
+            return talkData[id][talkIndex];                             //í•´ë‹¹ ì•„ì´ë””ì˜ ëŒ€í™”
         }
     }
 
+    /// <summary>
+    /// ìºë¦­í„°(NPC) id, ì´ˆìƒí™” ë²ˆí˜¸
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="portraitIndex"></param>
+    /// <returns></returns>
     public Sprite GetPortrait(int id, int portraitIndex)
     {
-        //id´Â NPC³Ñ¹ö , portraitIndex : Ç¥Á¤¹øÈ£(?)
         return portraitData[id + portraitIndex];
     }
 
-    public void Action(GameObject scanObj)
+    public void ReadyTalk(GameObject npcObj)
     {
-        scanObject = scanObj;
-
-        NPC npcGo = scanObject.GetComponent<NPC>();
+        NPC npcGo = npcObj.GetComponent<NPC>();
         charName = npcGo.NPCName;
 
-        questTalkIndex = (questManager.CurrentQuestIndex + 1) * 10;        // Á¶»çÇÑ objÀÇ id¸¦ ³Ñ°Ü Äù½ºÆ® id¸¦ ¹İÈ¯¹ŞÀ½ 
+        questTalkIndex = (questManager.CurrentQuestIndex + 1) * 10;             //npcì˜ idë¥¼ ë„˜ê²¨ í€˜ìŠ¤íŠ¸ idë¥¼ ë°˜í™˜ë°›ìŒ 
         questStep = questManager.CurrentQuestStepIndex;
 
         Talk(npcGo.GetNPCID);
@@ -130,11 +126,10 @@ public class DialogueManager : MonoBehaviour
         talkPanel.SetActive(isAction);
     }
 
-    void Talk(int id, bool isNPC = true)
-    { // id´Â ¿ÀºêÁ§Æ®id 
-
+    private void Talk(int id, bool isNPC = true)
+    { 
         isQuestTalk = true;
-        string talkData = GetTalk(id + questTalkIndex + questStep, talkIndex);              //id¿¡ Äù½ºÆ® id¸¦ ´õÇÏ¸é -> ÇØ´ç id¸¦ °¡Áø ¿ÀºêÁ§Æ®°¡ °¡Áø Äù½ºÆ®ÀÇ ´ëÈ­¸¦ ¹İÈ¯ÇÏ°Ô ¸¸µé±â
+        string talkData = GetTalk(id + questTalkIndex + questStep, talkIndex);  //idì— í€˜ìŠ¤íŠ¸ idë¥¼ ë”í•˜ë©´ -> í•´ë‹¹ idë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ê°€ ê°€ì§„ í€˜ìŠ¤íŠ¸ì˜ ëŒ€í™”ë¥¼ ë°˜í™˜í•˜ê²Œ ë§Œë“¤ê¸°
 
         if (talkData == null)
         {
@@ -145,9 +140,9 @@ public class DialogueManager : MonoBehaviour
 
             if (isQuestTalk == true)
             {
-                GameEventsManager.instance.inputEvents.SubmitPressed();         //NPC Äù½ºÆ® ½ÃÀÛ
+                GameEventsManager.instance.inputEvents.SubmitPressed();         //NPC í€˜ìŠ¤íŠ¸ ì‹œì‘
             }
-        
+
             talkPanel.SetActive(isAction);
             return;
         }
@@ -155,7 +150,7 @@ public class DialogueManager : MonoBehaviour
         if (isNPC)
         {
             UIInfoText.text = "";
-            UITalkText.text = talkData.Split(':')[0];           //±¸ºĞÀÚ·Î ¹®ÀåÀ» ³ª´²ÁÜ  0: ´ë»ç 1:portraitIndex
+            UITalkText.text = talkData.Split(':')[0];                           //êµ¬ë¶„ìë¡œ ë¬¸ì¥ì„ ë‚˜ëˆ ì¤Œ  0: ëŒ€ì‚¬ 1:portraitIndex
             portraitImg.sprite = GetPortrait(id, int.Parse(talkData.Split(':')[1]));
 
             if (int.Parse(talkData.Split(':')[1]) == playerface)
@@ -167,9 +162,7 @@ public class DialogueManager : MonoBehaviour
                 UINameText.text = charName;
             }
 
-
             portraitImg.color = new Color(1, 1, 1, 1);
-
         }
         else
         {
@@ -179,10 +172,8 @@ public class DialogueManager : MonoBehaviour
 
             portraitImg.color = new Color(1, 1, 1, 0);
         }
-
-        //´ÙÀ½ ¹®ÀåÀ» °¡Á®¿À±â À§ÇØ talkDataÀÇ ÀÎµ¦½º¸¦ ´Ã¸²
-        isAction = true; //´ë»ç°¡ ³²¾ÆÀÖÀ¸¹Ç·Î °è¼Ó ÁøÇàµÇ¾î¾ßÇÔ 
-        talkIndex++;
+      
+        isAction = true;                                                        //ëŒ€ì‚¬ê°€ ë‚¨ì•„ìˆìœ¼ë¯€ë¡œ ê³„ì† ì§„í–‰
+        talkIndex++;                                                            //ë‹¤ìŒ ë¬¸ì¥ì„ ê°€ì ¸ì˜¤ê¸°
     }
-
 }

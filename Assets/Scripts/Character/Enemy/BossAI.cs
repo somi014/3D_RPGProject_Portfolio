@@ -16,32 +16,45 @@ public class BossAI : EnemyControl
     private bool isAttacking = false;                //공격 중인지 체크
     private int currencyHp = -1;
     public int attackCount;
-    [HideInInspector] public float scanRange_gui;    //GUI 범위 표시용
+    [HideInInspector] 
+    public float scanRange_gui;                     //GUI 범위 표시용
 
     public bool stop = false;                        //테스트 용
     private bool jumpEnd;
 
     [Header("Hp Bar UI")]
-    [SerializeField] private Image hpBar;
+    [SerializeField] 
+    private Image hpBar;
 
     [Header("Drop Item")]
-    [SerializeField] private ItemDropList dropList;
-    [SerializeField] private float itemDropRange = 2f;
+    [SerializeField]
+    private ItemDropList dropList;
+    [SerializeField]
+    private float itemDropRange = 2f;
 
     [Header("Particle")]
-    [SerializeField] private ParticleSystem[] attackParticle;
-    [SerializeField] private ParticleSystem groundParticle;
+    [SerializeField]
+    private ParticleSystem[] attackParticle;
+    [SerializeField] 
+    private ParticleSystem groundParticle;
 
     protected override void Init()
-    {
-        if (TryGetComponent(out StatAttribute stats) == true)
-            this.stats = stats;
-        if (TryGetComponent(out Animator anim) == true)
-            this.anim = anim;
+    {    
+        if (TryGetComponent(out StatAttribute statsAttribute) == true)
+        {
+            stats = statsAttribute;
+        }
+        if (TryGetComponent(out Animator animator) == true)
+        {
+            anim = animator;
+        }
+
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<StatAttribute>();
 
-        if (TryGetComponent(out CapsuleCollider col) == true)
-            this.col = col;
+        if (TryGetComponent(out CapsuleCollider capsuleCollider) == true)
+        {
+            col = capsuleCollider;
+        }
 
         base.Init();
     }
@@ -88,7 +101,7 @@ public class BossAI : EnemyControl
 
         //공격 가능 거리인지 
         bool attackRange = damageDealers[attackCount].viewRadius >= distance;
-        _lockTarget = player.gameObject;
+        lockTarget = player.gameObject;
 
         if (attackRange == true)
         {
@@ -106,10 +119,10 @@ public class BossAI : EnemyControl
     protected override void UpdateMoving()
     {
         // 플레이어가 내 사정거리보다 가까우면 공격
-        if (_lockTarget != null)
+        if (lockTarget != null)
         {
-            _destPos = _lockTarget.transform.position;
-            float distance = (_destPos - transform.position).magnitude;
+            destPos = lockTarget.transform.position;
+            float distance = (destPos - transform.position).magnitude;
             if (distance <= damageDealers[attackCount].viewRadius)
             {
                 currentState = EnemyState.ATTACK;
@@ -121,56 +134,55 @@ public class BossAI : EnemyControl
         }
 
         // 이동
-        Vector3 dir = _destPos - transform.position;
-        //if (dir.magnitude < 0.1f)
-        //{
-        //    currentState = EnemyState.IDLE;
-        //    anim.SetBool("Move", true);
-        //}
-        //else        // 목적지까지의 거리가 매우 작다면(도착했다면) 이동 중이라는 상태를 false
-        {
-            float moveDist = Mathf.Clamp(speed * Time.deltaTime, 0, dir.magnitude);
-            transform.position += dir.normalized * moveDist;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 10 * Time.deltaTime);
+        Vector3 dir = destPos - transform.position;
 
-            anim.SetFloat("MoveSpeed", 2f);
-        }
+        float moveDist = Mathf.Clamp(speed * Time.deltaTime, 0, dir.magnitude);
+        transform.position += dir.normalized * moveDist;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 10 * Time.deltaTime);
+
+        anim.SetFloat("MoveSpeed", 2f);
+
     }
 
     protected override void UpdateSkill()
     {
         if (player.isDead == true)
         {
-            _lockTarget = null;
+            lockTarget = null;
         }
 
-        if (_lockTarget != null)
+        if (lockTarget != null)
         {
-            if (attackLook == true)
-            {
-                Vector3 dir = _lockTarget.transform.position - transform.position;
-                Quaternion quat = Quaternion.LookRotation(dir);
-                transform.rotation = Quaternion.Lerp(transform.rotation, quat, 20 * Time.deltaTime);
-            }
-
-            if (isAttacking == false)
-            {
-                isAttacking = true;
-
-                anim.SetInteger("AttackNum", attackCount);
-
-                attackCount++;
-                if (attackCount >= damageDealers.Length)
-                {
-                    attackCount = 0;
-                }
-            }
+            ReadyToAttack();
         }
         else
         {
             anim.SetBool("Move", true);
             anim.SetFloat("MoveSpeed", 0f);
             currentState = EnemyState.IDLE;
+        }
+    }
+
+    private void ReadyToAttack()
+    {
+        if (attackLook == true)
+        {
+            Vector3 dir = lockTarget.transform.position - transform.position;
+            Quaternion quat = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Lerp(transform.rotation, quat, 20 * Time.deltaTime);
+        }
+
+        if (isAttacking == false)
+        {
+            isAttacking = true;
+
+            anim.SetInteger("AttackNum", attackCount);
+
+            attackCount++;
+            if (attackCount >= damageDealers.Length)
+            {
+                attackCount = 0;
+            }
         }
     }
 
@@ -209,7 +221,7 @@ public class BossAI : EnemyControl
 
             col.isTrigger = true;
 
-            GameEventsManager.instance.playerEvents.ExperienceGained(5);
+            GameEventsManager.instance.playerEvents.ExperienceGained(10);
         }
     }
 
@@ -261,9 +273,7 @@ public class BossAI : EnemyControl
     {
         groundParticle.Play();
 
-        //camera shake
     }
-
 
     public void JumpMove()
     {

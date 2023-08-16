@@ -1,20 +1,19 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InterActionObject : MonoBehaviour
 {
-    Inventory inventory;
-    DialogueManager dialogueManager;
-    PlayerStateManager player;
+    private Inventory inventory;
+    private DialogueManager dialogueManager;
+    private PlayerStateManager player;
 
     private NPC npc;
 
     private bool npcTalk = false;
     public bool itemInterAction = false;
     public bool pickUp;
-
 
     private void Awake()
     {
@@ -24,7 +23,7 @@ public class InterActionObject : MonoBehaviour
     }
 
     /// <summary>
-    /// ¾ÆÀÌÅÛ, NPC »óÈ£ÀÛ¿ë
+    /// ì•„ì´í…œ, NPC ìƒí˜¸ì‘ìš©
     /// </summary>
     /// <param name="callbackContext"></param>
     public void InterActionObejctKey(InputAction.CallbackContext callbackContext)
@@ -37,12 +36,12 @@ public class InterActionObject : MonoBehaviour
 
                 npc.NPCTalkStart();
 
-                dialogueManager.Action(npc.gameObject);
+                dialogueManager.ReadyTalk(npc.gameObject);
             }
         }
         else if (itemInterAction == true)
         {
-            pickUp = callbackContext.action.IsPressed();            //´©¸£´Â µ¿¾È ¾ÆÀÌÅÛ »óÈ£ÀÛ¿ë
+            pickUp = callbackContext.action.IsPressed();            //ëˆ„ë¥´ëŠ” ë™ì•ˆ ì•„ì´í…œ ìƒí˜¸ì‘ìš©
         }
     }
 
@@ -69,8 +68,7 @@ public class InterActionObject : MonoBehaviour
             npc = null;
         }
 
-
-        if (other.gameObject.tag.Contains("Item") == true)
+        if (other.gameObject.tag.Contains("Item") == true)              //ìˆ˜ì •?
         {
             itemInterAction = false;
         }

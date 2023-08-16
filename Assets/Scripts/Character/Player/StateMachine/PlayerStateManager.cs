@@ -99,21 +99,32 @@ public partial class PlayerStateManager
     private float _fallTimeoutDelta;
 
     // animation IDs
-    [HideInInspector] public int _animIDSpeed;
-    [HideInInspector] public int _animIDGrounded;
-    [HideInInspector] public int _animIDJump;
-    [HideInInspector] public int _animIDFreeFall;
-    [HideInInspector] public int _animIDMotionSpeed;
-    [HideInInspector] public int _animIDCombo;
-    [HideInInspector] public int _animIDHeal;
-    [HideInInspector] public int _animIDDie;
+    [HideInInspector] 
+    public int _animIDSpeed;
+    [HideInInspector] 
+    public int _animIDGrounded;
+    [HideInInspector] 
+    public int _animIDJump;
+    [HideInInspector] 
+    public int _animIDFreeFall;
+    [HideInInspector]
+    public int _animIDMotionSpeed;
+    [HideInInspector]
+    public int _animIDCombo;
+    [HideInInspector] 
+    public int _animIDHeal;
+    [HideInInspector]
+    public int _animIDDie;
 
 #if ENABLE_INPUT_SYSTEM
-    [HideInInspector] public PlayerInput _playerInput;
+    [HideInInspector] 
+    public PlayerInput _playerInput;
 #endif
 
-    [HideInInspector] public Animator _animator;
-    [HideInInspector] public StatAttribute stats;
+    [HideInInspector]
+    public Animator _animator;
+    [HideInInspector]
+    public StatAttribute stats;
 
     private CharacterController _controller;
     private GameObject _mainCamera;
@@ -122,7 +133,8 @@ public partial class PlayerStateManager
     private const float _threshold = 0.01f;         //오차 값
 
     private bool _hasAnimator;
-    [HideInInspector] public bool deadProcess = false;                //죽었을 때 프로세스 진행했는지 여부
+    [HideInInspector] 
+    public bool deadProcess = false;                //죽었을 때 프로세스 진행했는지 여부
 
     [Header("Camera")]
     public GameObject playerFollowCamera;

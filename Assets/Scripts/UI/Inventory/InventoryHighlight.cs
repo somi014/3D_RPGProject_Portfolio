@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class InventoryHighlight : MonoBehaviour
 {
-    [SerializeField] RectTransform highlighter;
+    [SerializeField]
+    private RectTransform highlighter;
 
     public void SetSize(InventoryItem inventoryItem)
     {
@@ -20,17 +21,19 @@ public class InventoryHighlight : MonoBehaviour
         highlighter.localPosition = position;
     }
 
-    public void SetParent(ItemGrid targetGrid)
-    {
-        if (targetGrid == null)
-            return;
-        highlighter.SetParent(targetGrid.transform);
-    }
-
     public void SetPosition(ItemGrid targetGrid, InventoryItem targetItem, int posX, int posY)
     {
         Vector2 pos = targetGrid.CalculatePositionOfObjectOnGrid(targetItem, posX, posY);
         highlighter.localPosition = pos;
+    }
+
+    public void SetParent(ItemGrid targetGrid)
+    {
+        if (targetGrid == null)
+        {
+            return;
+        }
+        highlighter.SetParent(targetGrid.transform);
     }
 
     public void Show(bool set)

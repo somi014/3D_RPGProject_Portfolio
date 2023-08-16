@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM
 [RequireComponent(typeof(PlayerInput))]
@@ -10,7 +9,6 @@ public partial class PlayerStateManager : MonoBehaviour
 {
     private void Awake()
     {
-        // get a reference to our main camera
         if (_mainCamera == null)
         {
             _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -33,7 +31,6 @@ public partial class PlayerStateManager : MonoBehaviour
 
         AssignAnimationIDs();
 
-        // reset our timeouts on start
         _jumpTimeoutDelta = JumpTimeout;
         _fallTimeoutDelta = FallTimeout;
     }

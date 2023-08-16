@@ -13,20 +13,27 @@ public enum EnemyState
 
 public abstract class EnemyControl : MonoBehaviour
 {
-    [SerializeField] protected EnemyState currentState = EnemyState.IDLE;
+    [SerializeField]
+    protected EnemyState currentState = EnemyState.IDLE;
 
-    [SerializeField] protected DamageDealer[] damageDealers;
+    [SerializeField]
+    protected DamageDealer[] damageDealers;
 
-    protected GameObject _lockTarget;
-    protected Vector3 _destPos;
+    protected GameObject lockTarget;
+    protected Vector3 destPos;
 
-    [SerializeField] protected float attackRange;
-    [SerializeField] protected float scanRange;
-    [SerializeField] protected float speed;
+    [SerializeField] 
+    protected float attackRange;
+    [SerializeField]
+    protected float scanRange;
+    [SerializeField] 
+    protected float speed;
 
     [Header("Check For Edit")]
-    [SerializeField] protected bool deadDrop;
-    [SerializeField] protected bool isReturn;
+    [SerializeField]
+    protected bool deadDrop;
+    [SerializeField] 
+    protected bool isReturn;
 
     private void Awake()
     {

@@ -7,11 +7,10 @@ public class EnemySpawn : MonoBehaviour
     [SerializeField]
     private GameObject[] enemyObject;
 
-    Queue<GameObject> poolingObjectQueue = new Queue<GameObject>();
+    private Queue<GameObject> poolingObjectQueue = new Queue<GameObject>();
 
     private void Start()
     {
-
         StartCoroutine(IESpwanEnemy());
     }
 
@@ -24,7 +23,6 @@ public class EnemySpawn : MonoBehaviour
         }
         else
         {
-            Debug.Log("null spawn enemy");
             return null;
         }
     }

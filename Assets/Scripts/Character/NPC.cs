@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    private Quest quest;
     private QuestPoint questPoint;
     private Animator anim;
 
     private Transform player;
 
     [Header("NPC Info")]
-    [SerializeField] private string npcName;
-    [SerializeField] private int npcID;
+    [SerializeField]
+    private string npcName;
+    [SerializeField] 
+    private int npcID;
+
     public string NPCName { get => npcName; }
     public int GetNPCID { get => npcID; }
    
-    bool look = false;
+    private bool look = false;
 
 
     private void Awake()
@@ -29,7 +31,6 @@ public class NPC : MonoBehaviour
 
     public void Init(Quest quest)
     {
-        this.quest = quest;
         questPoint.NPCQuestSet(quest, npcID);
     }
 

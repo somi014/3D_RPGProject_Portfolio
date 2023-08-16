@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
@@ -13,51 +13,50 @@ public class CameraShake : MonoBehaviour
     public float DefaultShakeAmplitude = 0.5f;
     public float DefaultShakeFrequency = 10f;
 
-    protected Vector3 _initialPosition;
-    protected Quaternion _initialRotation;
+    protected Vector3 initialPosition;
+    protected Quaternion initialRotation;
 
     protected CinemachineBasicMultiChannelPerlin perlin;
-    protected CinemachineVirtualCamera _virtualCamera;
+    protected CinemachineVirtualCamera virtualCamera;
 
-    protected virtual void Awake()
+    private  void Awake()
     {
-        _virtualCamera = GetComponent<Cinemachine.CinemachineVirtualCamera>();
-        perlin = _virtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
+        virtualCamera = GetComponent<CinemachineVirtualCamera>();
+        perlin = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
-
-    protected virtual void Start()
+    private void Start()
     {
         CameraReset();
     }
 
     /// <summary>
-    ///Ä«¸Ş¶ó Èçµé±â
+    ///ì¹´ë©”ë¼ í”ë“¤ê¸°
     /// </summary>
     /// <param name="duration">Duration.</param>
-    public virtual void ShakeCamera(float duration)
+    public void ShakeCamera(float duration)
     {
         StartCoroutine(ShakeCameraCo(shakeTime, DefaultShakeAmplitude, DefaultShakeFrequency));
     }
 
     /// <summary>
-    /// Ä«¸Ş¶ó Èçµé±â
+    /// ì¹´ë©”ë¼ í”ë“¤ê¸°
     /// </summary>
     /// <param name="duration">Duration.</param>
     /// <param name="amplitude">Amplitude.</param>
     /// <param name="frequency">Frequency.</param>
-    public virtual void ShakeCamera(float duration, float amplitude, float frequency)
+    public void ShakeCamera(float duration, float amplitude, float frequency)
     {
         StartCoroutine(ShakeCameraCo(duration, amplitude, frequency));
     }
 
     /// <summary>
-    /// Ä«¸Ş¶ó Èçµé±â ÄÚ·çÆ¾
+    /// ì¹´ë©”ë¼ í”ë“¤ê¸° ì½”ë£¨í‹´
     /// </summary>
     /// <param name="duration">Duration.</param>
     /// <param name="amplitude">Amplitude.</param>
     /// <param name="frequency">Frequency.</param>
-    protected virtual IEnumerator ShakeCameraCo(float duration, float amplitude, float frequency)
+    private IEnumerator ShakeCameraCo(float duration, float amplitude, float frequency)
     {
         float time = duration;
 
@@ -65,23 +64,22 @@ public class CameraShake : MonoBehaviour
         do
         {
             float value = Mathf.Lerp(amplitude, IdleAmplitude, 1 - (time / duration));
+           
             yield return null;
             time -= Time.deltaTime;
+          
             perlin.m_AmplitudeGain = value;
-            //perlin.m_FrequencyGain = frequency;
 
         } while (time > 0f);
 
-        //yield return new WaitForSeconds(duration);
         CameraReset();
     }
 
     /// <summary>
-    /// ÃÊ±âÈ­
+    /// ì´ˆê¸°í™”
     /// </summary>
-    public virtual void CameraReset()
+    public void CameraReset()
     {
         perlin.m_AmplitudeGain = IdleAmplitude;
-        //perlin.m_FrequencyGain = IdleFrequency;
     }
 }

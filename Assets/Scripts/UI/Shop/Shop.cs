@@ -6,12 +6,15 @@ public class Shop : MonoBehaviour
 {
     public static Shop instance;
 
-    [SerializeField] List<ItemData> itemDatas;
+    [SerializeField]
+    private List<ItemData> itemDatas;
 
-    [SerializeField] private GameObject slotPrefab;
-    [SerializeField] private Transform slotParent;
+    [SerializeField]
+    private GameObject slotPrefab;
+    [SerializeField]
+    private Transform slotParent;
 
-    Inventory inventory;
+    private Inventory inventory;
 
     private void Awake()
     {
@@ -33,13 +36,13 @@ public class Shop : MonoBehaviour
         }
     }
 
-   public void InsertItemToInventory(ShopSlot slot, int gold)
+   public void InsertItemToInventory(ShopSlot slot, int amount)
     {
-        if (inventory.currency >= gold)
+        if (inventory.gold >= amount)
         {
             if (slot.TryGetComponent(out InteractableObject item) == true)
             {
-                GameEventsManager.instance.playerEvents.GoldDeducted(gold);
+                GameEventsManager.instance.playerEvents.GoldDeducted(amount);
 
                 item.Interact(inventory);
 

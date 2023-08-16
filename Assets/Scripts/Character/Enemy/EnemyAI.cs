@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -13,34 +13,44 @@ public class EnemyAI : EnemyControl
     private CapsuleCollider col;
 
     private bool attackLook = false;
-    private bool isAttacking = false;                //∞¯∞› ¡ﬂ¿Œ¡ˆ √º≈©
+    private bool isAttacking = false;                //Í≥µÍ≤© Ï§ëÏù∏ÏßÄ Ï≤¥ÌÅ¨
     private int currencyHp = -1;
     private int attackCount;
-    [HideInInspector] public float scanRange_gui;    //GUI π¸¿ß «•Ω√øÎ
+    [HideInInspector]
+    public float scanRange_gui;                     //GUI Î≤îÏúÑ ÌëúÏãúÏö©
 
-    public bool stop = false;                        //≈◊Ω∫∆Æ øÎ
+    public bool stop = false;                        //ÌÖåÏä§Ìä∏ Ïö©
     
     [Header("Hp Bar UI")]
-    [SerializeField] private Image hpBar;
+    [SerializeField] 
+    private Image hpBar;
 
     private Vector3 originPos;
 
     [Header("Drop Item")]
-    [SerializeField] private ItemDropList dropList;
-    [SerializeField] private float itemDropRange = 2f;
+    [SerializeField] 
+    private ItemDropList dropList;
+    [SerializeField]
+    private float itemDropRange = 2f;
 
     protected override void Init()
     {
-        if (TryGetComponent(out StatAttribute stats) == true)
-            this.stats = stats;
-        if (TryGetComponent(out Animator anim) == true)
-            this.anim = anim;
+        if (TryGetComponent(out StatAttribute statsAttribute) == true)
+        {
+            stats = statsAttribute;
+        }
+        if (TryGetComponent(out Animator animator) == true)
+        {
+            anim = animator;
+        }
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<StatAttribute>();
 
         spawn = transform.parent.GetComponent<EnemySpawn>();
 
-        if (TryGetComponent(out CapsuleCollider col) == true)
-            this.col = col;
+        if (TryGetComponent(out CapsuleCollider capsuleCollider) == true)
+        {
+            col = capsuleCollider;
+        }
 
         scanRange_gui = scanRange;
         originPos = transform.position;
@@ -84,7 +94,7 @@ public class EnemyAI : EnemyControl
         float distance = (player.transform.position - transform.position).magnitude;
         if (distance <= scanRange)
         {
-            _lockTarget = player.gameObject;
+            lockTarget = player.gameObject;
 
             currentState = EnemyState.CHASE;
             anim.SetBool("Move", true);
@@ -107,11 +117,11 @@ public class EnemyAI : EnemyControl
 
     protected override void UpdateMoving()
     {
-        // «√∑π¿ÃæÓ∞° ≥ª ªÁ¡§∞≈∏Æ∫∏¥Ÿ ∞°±ÓøÏ∏È ∞¯∞›
-        if (_lockTarget != null)
+        // ÌîåÎ†àÏù¥Ïñ¥Í∞Ä ÎÇ¥ ÏÇ¨Ï†ïÍ±∞Î¶¨Î≥¥Îã§ Í∞ÄÍπåÏö∞Î©¥ Í≥µÍ≤©
+        if (lockTarget != null)
         {
-            _destPos = _lockTarget.transform.position;
-            float distance = (_destPos - transform.position).magnitude;
+            destPos = lockTarget.transform.position;
+            float distance = (destPos - transform.position).magnitude;
             if (distance <= attackRange)
             {
                 currentState = EnemyState.ATTACK;
@@ -130,17 +140,17 @@ public class EnemyAI : EnemyControl
 
         if (isReturn == true)
         {
-            _destPos = originPos;
+            destPos = originPos;
         }
 
-        // ¿Ãµø
-        Vector3 dir = _destPos - transform.position;
+        // Ïù¥Îèô
+        Vector3 dir = destPos - transform.position;
         if (dir.magnitude < 0.1f)
         {
             currentState = EnemyState.IDLE;
             anim.SetBool("Move", true);
         }
-        else        // ∏Ò¿˚¡ˆ±Ó¡ˆ¿« ∞≈∏Æ∞° ∏≈øÏ ¿€¥Ÿ∏È(µµ¬¯«ﬂ¥Ÿ∏È) ¿Ãµø ¡ﬂ¿Ã∂Û¥¬ ªÛ≈¬∏¶ false
+        else        // Î™©Ï†ÅÏßÄÍπåÏßÄÏùò Í±∞Î¶¨Í∞Ä Îß§Ïö∞ ÏûëÎã§Î©¥(ÎèÑÏ∞©ÌñàÎã§Î©¥) Ïù¥Îèô Ï§ëÏù¥ÎùºÎäî ÏÉÅÌÉúÎ•º false
         {
             float moveDist = Mathf.Clamp(speed * Time.deltaTime, 0, dir.magnitude);
             transform.position += dir.normalized * moveDist;
@@ -154,36 +164,41 @@ public class EnemyAI : EnemyControl
     {
         if (player.isDead == true)
         {
-            _lockTarget = null;
+            lockTarget = null;
         }
 
-        if (_lockTarget != null)
+        if (lockTarget != null)
         {
-            if (attackLook == true)
-            {
-                Vector3 dir = _lockTarget.transform.position - transform.position;
-                Quaternion quat = Quaternion.LookRotation(dir);
-                transform.rotation = Quaternion.Lerp(transform.rotation, quat, 20 * Time.deltaTime);
-            }
-
-            if (isAttacking == false)
-            {
-                isAttacking = true;
-
-                anim.SetInteger("AttackNum", attackCount);
-
-                attackCount++;
-                if (attackCount >= damageDealers.Length - 1)
-                {
-                    attackCount = 0;
-                }
-            }
+            ReadyToAttack();
         }
         else
         {
             anim.SetBool("Move", true);
             anim.SetFloat("MoveSpeed", 0f);
             currentState = EnemyState.IDLE;
+        }
+    }
+
+    private void ReadyToAttack()
+    {
+        if (attackLook == true)
+        {
+            Vector3 dir = lockTarget.transform.position - transform.position;
+            Quaternion quat = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Lerp(transform.rotation, quat, 20 * Time.deltaTime);
+        }
+
+        if (isAttacking == false)
+        {
+            isAttacking = true;
+
+            anim.SetInteger("AttackNum", attackCount);
+
+            attackCount++;
+            if (attackCount >= damageDealers.Length - 1)
+            {
+                attackCount = 0;
+            }
         }
     }
 
@@ -212,7 +227,6 @@ public class EnemyAI : EnemyControl
         {
             deadDrop = true;
 
-            //anim.SetBool("Die", true);
             currentState = EnemyState.DIE;
 
             col.isTrigger = true;

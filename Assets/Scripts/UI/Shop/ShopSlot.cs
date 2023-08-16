@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,13 +6,16 @@ using TMPro;
 
 public class ShopSlot : MonoBehaviour
 {
-    ItemData itemData;
+    private ItemData itemData;
 
-    [SerializeField] private Image itemImage;
-    [SerializeField] private TextMeshProUGUI itemName;
-    [SerializeField] private TextMeshProUGUI itemPrice;
+    [SerializeField] 
+    private Image itemImage;
+    [SerializeField]
+    private TextMeshProUGUI itemName;
+    [SerializeField]
+    private TextMeshProUGUI itemPrice;
 
-    InteractableObject interactItem;
+    private InteractableObject interactItem;
 
     private void Awake()
     {
@@ -21,12 +24,12 @@ public class ShopSlot : MonoBehaviour
 
     private void Start()
     {
-        interactItem.Subscibe(BoughtItemToInsert);              //±∏∏≈«— æ∆¿Ã≈€ ¿Œ∫•≈‰∏Æø° ≥÷¥¬ ¿Ã∫•∆Æ √ﬂ∞°
+        interactItem.Subscibe(BoughtItemToInsert);              //Íµ¨Îß§Ìïú ÏïÑÏù¥ÌÖú Ïù∏Î≤§ÌÜ†Î¶¨Ïóê ÎÑ£Îäî Ïù¥Î≤§Ìä∏ Ï∂îÍ∞Ä
     }
 
-    public void SetShopSlot(ItemData itemData)
+    public void SetShopSlot(ItemData data)
     {
-        this.itemData = itemData;
+        itemData = data;
 
         itemImage.sprite = itemData.icon;
         itemName.text = itemData.name;
@@ -45,5 +48,4 @@ public class ShopSlot : MonoBehaviour
     {     
         Shop.instance.InsertItemToInventory(this, itemData.price);
     }
-
 }

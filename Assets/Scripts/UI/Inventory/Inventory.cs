@@ -1,20 +1,25 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [HideInInspector] public int currency = 20;                   //ÇÃ·¹ÀÌ¾î °ñµå
+    [HideInInspector] 
+    public int gold = 20;                   //í”Œë ˆì´ì–´ ê³¨ë“œ
 
-    [SerializeField] private ItemGrid mainInventoryItemGrid;
-    [SerializeField] private InventoryController inventoryController;
+    [SerializeField] 
+    private ItemGrid mainInventoryItemGrid;
+    [SerializeField] 
+    private InventoryController inventoryController;
 
-    [SerializeField] private List<EquipmentItemSlot> slots;
+    [SerializeField]
+    private List<EquipmentItemSlot> slots;
 
     private StatAttribute character;
 
-    [SerializeField] private List<ItemData> itemsOnStart;       //½ÃÀÛ ¾ÆÀÌÅÛ
+    [SerializeField]
+    private List<ItemData> itemsOnStart;       //ì‹œì‘ ì•„ì´í…œ
 
     private void Start()
     {
@@ -37,7 +42,7 @@ public class Inventory : MonoBehaviour
     }
 
     /// <summary>
-    /// ½ºÅÈ Áõ°¡
+    /// ìŠ¤íƒ¯ ì¦ê°€
     /// </summary>
     /// <param name="statsValue"></param>
     public void AddStats(List<StatsValue> statsValue)
@@ -46,7 +51,7 @@ public class Inventory : MonoBehaviour
     }
 
     /// <summary>
-    /// ½ºÅÈ Â÷°¨
+    /// ìŠ¤íƒ¯ ì°¨ê°
     /// </summary>
     /// <param name="stats"></param>
     public void SubtractStats(List<StatsValue> stats)
@@ -55,25 +60,25 @@ public class Inventory : MonoBehaviour
     }
 
     /// <summary>
-    /// °ñµå Ãß°¡
+    /// ê³¨ë“œ ì¶”ê°€
     /// </summary>
     /// <param name="amount"></param>
     public void AddCurrency(int amount)
     {
-        currency += amount;
+        gold += amount;
     }
 
     /// <summary>
-    /// °ñµå Â÷°¨
+    /// ê³¨ë“œ ì°¨ê°
     /// </summary>
     /// <param name="amount"></param>
     public void SubstactCurrency(int amount)
     {
-        currency -= amount;
+        gold -= amount;
     }
 
     /// <summary>
-    /// ¾ÆÀÌÅÛ È¹µæ, ±¸¸Å ½Ã ÀÎº¥Åä¸®¿¡ Ãß°¡
+    /// ì•„ì´í…œ íšë“, êµ¬ë§¤ ì‹œ ì¸ë²¤í† ë¦¬ì— ì¶”ê°€
     /// </summary>
     /// <param name="itemData"></param>
     /// <returns></returns>

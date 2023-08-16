@@ -1,10 +1,10 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
 
 /// <summary>
-/// ¾ÆÀÌÅÛ È¹µæ, ±¸¸Å
+/// ì•„ì´í…œ íšë“, êµ¬ë§¤
 /// </summary>
 public class InteractableObject : MonoBehaviour
 {

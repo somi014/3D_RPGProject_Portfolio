@@ -6,14 +6,15 @@ using TMPro;
 public class StatSlot : MonoBehaviour
 {
     [Header("Stat Attribute Type")]
-    [SerializeField] public Statistic statistic;
-    [SerializeField] public Attribute attribute;
+    public Statistic statistic;
+    public Attribute attribute;
 
     private TextMeshProUGUI currentValueTxt;
     private TextMeshProUGUI extraValueTxt;
 
     [Header("Stats or Attribute")]
-    [SerializeField] public bool isStat;
+    [SerializeField] 
+    public bool isStat;
 
     private void Awake()
     {
@@ -23,18 +24,20 @@ public class StatSlot : MonoBehaviour
 
     public void SetValue(StatAttribute stat)
     {
-        if (currentValueTxt != null)
+        if (currentValueTxt == null)
         {
-            if (stat.TakeStats(statistic).typeFloat == true)
-            {
-                currentValueTxt.text = stat.TakeStats(statistic).float_value.ToString();
-                extraValueTxt.text = "(+" + stat.TakeStats(statistic).extra_float_value.ToString() + ")";
-            }
-            else
-            {
-                currentValueTxt.text = stat.TakeStats(statistic).integer_value.ToString();
-                extraValueTxt.text = "(+" + stat.TakeStats(statistic).extra_integer_value.ToString() + ")";
-            }
+            return;
+        }
+
+        if (stat.TakeStats(statistic).typeFloat == true)
+        {
+            currentValueTxt.text = stat.TakeStats(statistic).float_value.ToString();
+            extraValueTxt.text = "(+" + stat.TakeStats(statistic).extra_float_value.ToString() + ")";
+        }
+        else
+        {
+            currentValueTxt.text = stat.TakeStats(statistic).integer_value.ToString();
+            extraValueTxt.text = "(+" + stat.TakeStats(statistic).extra_integer_value.ToString() + ")";
         }
     }
 }

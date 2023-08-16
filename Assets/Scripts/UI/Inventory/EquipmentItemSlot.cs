@@ -1,27 +1,26 @@
-using System;
+Ôªøusing System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EquipmentItemSlot : MonoBehaviour
 {
-    [SerializeField] EquipmentSlot equipmentSlot;
+    [SerializeField]
+    private EquipmentSlot equipmentSlot;
 
-    InventoryItem itemInSlot;           //¿Â∫Ò«— æ∆¿Ã≈€
-
-    RectTransform slotRectTransform;
-
-    Inventory inventory;
+    private Inventory inventory;
+    private InventoryItem itemInSlot;           //Ïû•ÎπÑÌïú ÏïÑÏù¥ÌÖú
+   
+    private RectTransform slotRectTransform;
 
     private void Awake()
     {
         slotRectTransform = GetComponent<RectTransform>();
     }
 
-    public void Init(Inventory inventory)
+    public void Init(Inventory inven)
     {
-        this.inventory = inventory;
+        inventory = inven;
     }
 
     public bool Check(InventoryItem itemToPlace)

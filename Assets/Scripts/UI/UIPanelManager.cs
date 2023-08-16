@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,18 +11,28 @@ public class UIPanelManager : MonoBehaviour
     private PlayerStateManager player;
     private StatAttribute stats;
 
-    [SerializeField] private Slider interactSlider;             //æ∆¿Ã≈€ ªÛ»£¿€øÎ ΩΩ∂Û¿Ã¥ı
-    [SerializeField] private Image playerHPSlider;
-    [SerializeField] private TextMeshProUGUI keyUI;
-    [SerializeField] private TextMeshProUGUI qeustTxt;
+    [SerializeField]
+    private Slider interactSlider;             //ÏïÑÏù¥ÌÖú ÏÉÅÌò∏ÏûëÏö© Ïä¨ÎùºÏù¥Îçî
+    [SerializeField]
+    private Image playerHPSlider;
+    [SerializeField]
+    private TextMeshProUGUI keyUI;
+    [SerializeField]
+    private TextMeshProUGUI qeustTxt;
 
-    [SerializeField] private GameObject inventoryPanel;
-    [SerializeField] private GameObject statsPanel;
-    [SerializeField] private GameObject shopPanel;
-    [SerializeField] private GameObject restartPanel;
+    [SerializeField]
+    private GameObject inventoryPanel;
+    [SerializeField]
+    private GameObject statsPanel;
+    [SerializeField]
+    private GameObject shopPanel;
+    [SerializeField]
+    private GameObject restartPanel;
 
-    [SerializeField] private CanvasGroup levelUp_cg;
-    [SerializeField] private TextMeshProUGUI levelTxt;
+    [SerializeField]
+    private CanvasGroup levelUp_cg;
+    [SerializeField]
+    private TextMeshProUGUI levelTxt;
 
     private CanvasGroup restart_cg;
     private Button restart_btn;
@@ -32,17 +42,13 @@ public class UIPanelManager : MonoBehaviour
 
     private void Awake()
     {
-        restart_cg = restartPanel.GetComponent<CanvasGroup>();
-        restart_cg.alpha = 0f;
-        restart_btn = restartPanel.GetComponentInChildren<Button>();
-        restart_btn.enabled = false;
-
-        player = FindObjectOfType<PlayerStateManager>();
-
         instance = this;
 
         player = FindObjectOfType<PlayerStateManager>();
         stats = player.GetComponent<StatAttribute>();
+
+        restart_cg = restartPanel.GetComponent<CanvasGroup>();
+        restart_btn = restartPanel.GetComponentInChildren<Button>();
 
         Initialize();
     }
@@ -52,6 +58,9 @@ public class UIPanelManager : MonoBehaviour
         SetKeyUI(false);
         SliderActive(false);
         SliderGauge(0f);
+
+        restart_cg.alpha = 0f;
+        restart_btn.enabled = false;
 
         levelUp_cg.alpha = 0f;
     }
@@ -94,14 +103,17 @@ public class UIPanelManager : MonoBehaviour
         }
 
         player.cursorLocked = true;
-            player.SetCursorState(player.cursorLocked);
+        player.SetCursorState(player.cursorLocked);
+
         return false;
     }
 
     public void OpenInventory()
     {
         if (player.stats.isDead == true)
+        {
             return;
+        }
 
         inventoryPanel.SetActive(!inventoryPanel.activeInHierarchy);
 
@@ -119,7 +131,9 @@ public class UIPanelManager : MonoBehaviour
     public void OpenShop()
     {
         if (player.stats.isDead == true)
+        {
             return;
+        }
 
         shopPanel.SetActive(!shopPanel.activeInHierarchy);
 
@@ -159,7 +173,6 @@ public class UIPanelManager : MonoBehaviour
     public void RestartButton()
     {
         restartPanel.SetActive(false);
-
         player.gameObject.SetActive(false);
 
         player.cursorLocked = true;

@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 
 public class EquipmentItemSlotInteract : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    InventoryController inventoryController;
-    EquipmentItemSlot slot;
+    private InventoryController inventoryController;
+    private EquipmentItemSlot slot;
 
     void Awake()
     {

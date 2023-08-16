@@ -193,14 +193,17 @@ public class ValuePool
 
 public class StatAttribute : MonoBehaviour
 {
-    [SerializeField] AttributeGroup attributes;
-    [SerializeField] StatsGroup stats;
+    [SerializeField]
+    private AttributeGroup attributes;
+    [SerializeField]
+    private StatsGroup stats;
     public ValuePool lifePool;
     public ValuePool energyPool;
     public ValuePool experiencePool;
 
     public GameObject hudDamageText;
     public Transform hudPos;
+    private Animator anim;
 
     public bool isDead;
 
@@ -216,6 +219,8 @@ public class StatAttribute : MonoBehaviour
         energyPool = new ValuePool(stats.Get(Statistic.Energy));
         experiencePool = new ValuePool(stats.Get(Statistic.Experience));
         experiencePool.currentValue = 0;
+
+        anim = transform.GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -262,27 +267,25 @@ public class StatAttribute : MonoBehaviour
 
         CheckDeath();
 
-        if (transform.TryGetComponent(out Animator targetAnim) == true)
+
+        if (isDead == true)
         {
-            if (isDead == true)
+            anim.SetTrigger("Die");
+            return;
+        }
+
+        if (transform.TryGetComponent(out PlayerStateManager player) == true)
+        {
+            if (player.currentState == player.idlingState)
             {
-                targetAnim.SetTrigger("Die");
+                player.GetComponent<PlayerStateManager>().SwitchState(player.damageState);
             }
             else
             {
-                if (transform.TryGetComponent(out PlayerStateManager player) == true)
-                {
-                    if (player.currentState == player.idlingState)
-                    {
-                        player.GetComponent<PlayerStateManager>().SwitchState(player.damageState);
-                    }
-                    else
-                        return;
-                }
-                targetAnim.SetTrigger("GetHit");
+                return;
             }
-
         }
+        anim.SetTrigger("GetHit");
     }
 
     private int ApplyDefence(int damage)

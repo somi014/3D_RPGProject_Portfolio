@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,8 +6,10 @@ public class ItemSpawnManager : MonoBehaviour
 {
     public static ItemSpawnManager instance;
 
-    [SerializeField] GameObject itemPrefab;
-    [SerializeField] LayerMask terrainLayerMask;
+    [SerializeField]
+    private GameObject itemPrefab;
+    [SerializeField] 
+    private LayerMask groundLayerMask;
 
     private void Awake()
     {
@@ -16,12 +18,12 @@ public class ItemSpawnManager : MonoBehaviour
 
     public void SpawnItem(Vector3 position, ItemData itemToSpawn)
     {
-        position += Vector3.up * 20f;       //xz ÁÂÇ¥¿¡¼­ ¹Ù´Ú ·¹ÀÌ¾î Ã¼Å©·Î y ¸ÂÃß±â
+        position += Vector3.up * 20f;                           //xz ì¢Œí‘œì—ì„œ ë°”ë‹¥ ë ˆì´ì–´ ì²´í¬ë¡œ y ë§ì¶”ê¸°
 
         Ray findSurfaceRay = new Ray(position, Vector3.down);
         RaycastHit hit;
 
-        if(Physics.Raycast(findSurfaceRay, out hit, Mathf.Infinity, terrainLayerMask))
+        if(Physics.Raycast(findSurfaceRay, out hit, Mathf.Infinity, groundLayerMask))
         {
             GameObject newItemOnGround = Instantiate(itemPrefab, hit.point, Quaternion.identity);
             newItemOnGround.GetComponent<PickUpInteractableObject>().SetItem(itemToSpawn);

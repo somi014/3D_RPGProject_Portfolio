@@ -1,24 +1,27 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemGrid : MonoBehaviour
 {
-    InventoryItem[,] inventoryItemGrid;     //ÀÎº¥Åä¸® Ä­
+    private InventoryItem[,] inventoryItemGrid;     //ì¸ë²¤í† ë¦¬ ì¹¸
 
     public const float TileSizeWidth = 32f;
     public const float TileSizeHeight = 32f;
 
-    [SerializeField] int gridSizeWidth;     //ÀÎº¥Åä¸® °¡·Î »çÀÌÁî
-    [SerializeField] int gridSizeHeight;
+    [SerializeField]
+    private int gridSizeWidth;                      //ì¸ë²¤í† ë¦¬ ê°€ë¡œ ì‚¬ì´ì¦ˆ
+    [SerializeField]
+    private int gridSizeHeight;
 
-    RectTransform rectTransform;
+    private RectTransform rectTransform;
 
-    Vector2 mousePositionOnTheGrid;
-    Vector2Int tileGridPosition = new Vector2Int();
+    private Vector2 mousePositionOnTheGrid;
+    private Vector2Int tileGridPosition = new Vector2Int();
 
-    [SerializeField] GameObject inventoryItemPrefab;
+    [SerializeField]
+    private GameObject inventoryItemPrefab;
 
     public void Init()
     {
@@ -37,7 +40,7 @@ public class ItemGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÎº¥Åä¸® Å¸ÀÏ¿¡ ¾ÆÀÌÅÛ À§Ä¡ ½ÃÅ°±â
+    /// ì¸ë²¤í† ë¦¬ íƒ€ì¼ì— ì•„ì´í…œ ìœ„ì¹˜ ì‹œí‚¤ê¸°
     /// </summary>
     /// <param name="itemToPlace"></param>
     /// <param name="x"></param>
@@ -61,7 +64,7 @@ public class ItemGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// ¾ÆÀÌÅÛ Ãß°¡ÇÒ À§Ä¡ ¹İÈ¯, ¾øÀ»¸é null
+    /// ì•„ì´í…œ ì¶”ê°€í•  ìœ„ì¹˜ ë°˜í™˜, ì—†ì„ë©´ null
     /// </summary>
     /// <param name="itemData"></param>
     /// <returns></returns>
@@ -74,7 +77,7 @@ public class ItemGrid : MonoBehaviour
         {
             for (int x = 0; x < width; x++)
             {
-                if(CheckAvailableSpace(x, y, itemData.sizeWidth, itemData.sizeHeight) == true)
+                if (CheckAvailableSpace(x, y, itemData.sizeWidth, itemData.sizeHeight) == true)
                 {
                     return new Vector2Int(x, y);
                 }
@@ -84,7 +87,7 @@ public class ItemGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇØ´ç À§Ä¡¿¡ ¾ÆÀÌÅÛÀ» ³õÀ» ¼ö ÀÖ´ÂÁö Ã¼Å©
+    /// í•´ë‹¹ ìœ„ì¹˜ì— ì•„ì´í…œì„ ë†“ì„ ìˆ˜ ìˆëŠ”ì§€ ì²´í¬
     /// </summary>
     /// <param name="posX"></param>
     /// <param name="posY"></param>
@@ -97,7 +100,7 @@ public class ItemGrid : MonoBehaviour
         {
             for (int y = 0; y < sizeHeight; y++)
             {
-                if (inventoryItemGrid[posX + x, posY + y] != null)      //ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛÀÌ ÀÖÀ¸¸é
+                if (inventoryItemGrid[posX + x, posY + y] != null)      //ì¸ë²¤í† ë¦¬ì— ì•„ì´í…œì´ ìˆìœ¼ë©´
                 {
                     return false;
                 }
@@ -108,10 +111,10 @@ public class ItemGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// ¾ÆÀÌÅÛÀÇ ÀÎº¥Åä¸®¿¡¼­ À§Ä¡ ¹İÈ¯
+    /// ì•„ì´í…œì˜ ì¸ë²¤í† ë¦¬ì—ì„œ ìœ„ì¹˜ ë°˜í™˜
     /// </summary>
     /// <param name="item"></param>
-    /// <param name="x">Å¸ÀÏ À§Ä¡</param>
+    /// <param name="x">íƒ€ì¼ ìœ„ì¹˜</param>
     /// <param name="y"></param>
     /// <returns></returns>
     public Vector2 CalculatePositionOfObjectOnGrid(InventoryItem item, int x, int y)
@@ -121,9 +124,9 @@ public class ItemGrid : MonoBehaviour
         positionOnGrid.y = -(TileSizeHeight * y + TileSizeHeight * item.itemData.sizeHeight / 2);
         return positionOnGrid;
     }
-    
+
     /// <summary>
-    /// ¸¶¿ì½º À§Ä¡¸¦ ÀÎº¥Åä¸® Å¸ÀÏ À§Ä¡·Î º¯È¯ ¹İÈ¯
+    /// ë§ˆìš°ìŠ¤ ìœ„ì¹˜ë¥¼ ì¸ë²¤í† ë¦¬ íƒ€ì¼ ìœ„ì¹˜ë¡œ ë³€í™˜ ë°˜í™˜
     /// </summary>
     /// <param name="mousePosition"></param>
     /// <returns></returns>
@@ -139,13 +142,13 @@ public class ItemGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// °ãÄ¡´Â ¾ÆÀÌÅÛ ÀÖ´ÂÁö Ã¼Å©
+    /// ê²¹ì¹˜ëŠ” ì•„ì´í…œ ìˆëŠ”ì§€ ì²´í¬
     /// </summary>
-    /// <param name="posX">À§Ä¡</param>
+    /// <param name="posX">ìœ„ì¹˜</param>
     /// <param name="posY"></param>
-    /// <param name="sizeWidth">¾ÆÀÌÅÛ »çÀÌÁî</param>
+    /// <param name="sizeWidth">ì•„ì´í…œ ì‚¬ì´ì¦ˆ</param>
     /// <param name="sizeHeight"></param>
-    /// <param name="overlapItem">°ãÄ¡´Â ¾ÆÀÌÅÛ</param>
+    /// <param name="overlapItem">ê²¹ì¹˜ëŠ” ì•„ì´í…œ</param>
     /// <returns></returns>
     public bool CheckOverlap(int posX, int posY, int sizeWidth, int sizeHeight, ref InventoryItem overlapItem)
     {
@@ -153,20 +156,23 @@ public class ItemGrid : MonoBehaviour
         {
             for (int y = 0; y < sizeHeight; y++)
             {
-                if (inventoryItemGrid[posX + x, posY + y] != null)      //ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛÀÌ ÀÖÀ¸¸é
+                if (inventoryItemGrid[posX + x, posY + y] == null)      //ì¸ë²¤í† ë¦¬ì— ì•„ì´í…œì´ ì—†ìœ¼ë©´ 
                 {
-                    if (overlapItem == null)
+                    continue;
+                }
+              
+                if (overlapItem == null)
+                {
+                    overlapItem = inventoryItemGrid[posX + x, posY + y];
+                }
+                else
+                {
+                    if (overlapItem != inventoryItemGrid[posX + x, posY + y])
                     {
-                        overlapItem = inventoryItemGrid[posX + x, posY + y];
-                    }
-                    else
-                    {
-                        if (overlapItem != inventoryItemGrid[posX + x, posY + y])
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                 }
+
             }
         }
 
@@ -174,7 +180,7 @@ public class ItemGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÎº¥Åä¸®¿¡¼­ ¾ÆÀÌÅÛ ¼±ÅÃ
+    /// ì¸ë²¤í† ë¦¬ì—ì„œ ì•„ì´í…œ ì„ íƒ
     /// </summary>
     /// <param name="tilePositionOnGrid"></param>
     /// <returns></returns>
@@ -182,7 +188,9 @@ public class ItemGrid : MonoBehaviour
     {
         InventoryItem pickedItem = inventoryItemGrid[tilePositionOnGrid.x, tilePositionOnGrid.y];
         if (pickedItem == null)
+        {
             return null;
+        }
 
         ClearGridFromItem(pickedItem);
 
@@ -190,7 +198,7 @@ public class ItemGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÎº¥Åä¸®¿¡¼­ ÇØ´ç ¾ÆÀÌÅÛ Á¦°Å
+    /// ì¸ë²¤í† ë¦¬ì—ì„œ í•´ë‹¹ ì•„ì´í…œ ì œê±°
     /// </summary>
     /// <param name="pickedItem"></param>
     public void ClearGridFromItem(InventoryItem pickedItem)
@@ -205,7 +213,7 @@ public class ItemGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÎº¥Åä¸® Ä­ ³»ºÎÀÎÁö Ã¼Å©
+    /// ì¸ë²¤í† ë¦¬ ì¹¸ ë‚´ë¶€ì¸ì§€ ì²´í¬
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
@@ -226,23 +234,27 @@ public class ItemGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÎº¥Åä¸®¿¡¼­ ¾ÆÀÌÅÛ Å©±â¿¡ µû¶ó ¹üÀ§ Ã¼Å©
+    /// ì¸ë²¤í† ë¦¬ì—ì„œ ì•„ì´í…œ í¬ê¸°ì— ë”°ë¼ ë²”ìœ„ ì²´í¬
     /// </summary>
-    /// <param name="posX">¸¶¿ì½º À§Ä¡</param>
+    /// <param name="posX">ë§ˆìš°ìŠ¤ ìœ„ì¹˜</param>
     /// <param name="posY"></param>
-    /// <param name="width">¾ÆÀÌÅÛ »çÀÌÁî</param>
+    /// <param name="width">ì•„ì´í…œ ì‚¬ì´ì¦ˆ</param>
     /// <param name="height"></param>
     /// <returns></returns>
     public bool BoundrayCheck(int posX, int posY, int width, int height)
     {
         if (PositionCheck(posX, posY) == false)
+        {
             return false;
+        }
 
         posX += width - 1;
         posY += height - 1;
 
         if (PositionCheck(posX, posY) == false)
+        {
             return false;
+        }
 
         return true;
     }

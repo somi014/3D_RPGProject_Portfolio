@@ -1,18 +1,19 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class DamageText : MonoBehaviour
 {
+    public int damage;
     private float moveSpeed;
     private float alphaSpeed;
     private float destroyTime;
-    TextMeshPro text;
-    Color alpha;
-    public int damage;
+    
+    private TextMeshPro text;
+    private Color alpha;
 
-    void Start()
+    private void Start()
     {
         moveSpeed = 2.0f;
         alphaSpeed = 2.0f;
@@ -21,16 +22,17 @@ public class DamageText : MonoBehaviour
         text = GetComponent<TextMeshPro>();
         alpha = text.color;
         text.text = damage.ToString();
+
         Invoke("DestroyObject", destroyTime);
     }
 
-    void Update()
+    private void Update()
     {
-        transform.Translate(new Vector3(0, moveSpeed * Time.deltaTime, 0)); // ÅØ½ºÆ® À§Ä¡
+        transform.Translate(new Vector3(0, moveSpeed * Time.deltaTime, 0));     // í…ìŠ¤íŠ¸ ìœ„ì¹˜
         transform.LookAt(Camera.main.transform);
         transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
 
-        alpha.a = Mathf.Lerp(alpha.a, 0, Time.deltaTime * alphaSpeed); // ÅØ½ºÆ® ¾ËÆÄ°ª
+        alpha.a = Mathf.Lerp(alpha.a, 0, Time.deltaTime * alphaSpeed);          // í…ìŠ¤íŠ¸ ì•ŒíŒŒê°’
         text.color = alpha;
     }
 

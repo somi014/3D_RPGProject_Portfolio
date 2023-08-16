@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class DamageDealer : MonoBehaviour
 {
-    [SerializeField] CameraShake cameraShake;
-
     private bool canDealDamage;
 
     [SerializeField] private int damage;
@@ -55,11 +54,6 @@ public class DamageDealer : MonoBehaviour
                 {
                     if (!hasDealtDamage.Contains(target))
                     {
-                        if (cameraShake != null)
-                        {
-                            cameraShake.ShakeCamera(1f);
-                        }
-
                         int tempDamage = damage + stats.TakeStats(Statistic.Damage).integer_value;
                         targetStat.TakeDamage(tempDamage);
                         hasDealtDamage.Add(target);                     //이미 공격한 타겟인지 구분하기 위해
@@ -123,5 +117,4 @@ public class DamageDealer : MonoBehaviour
     {
         canDealDamage = false;
     }
-
 }

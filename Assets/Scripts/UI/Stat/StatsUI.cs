@@ -5,8 +5,10 @@ using TMPro;
 
 public class StatsUI : MonoBehaviour
 {
-    [SerializeField] private StatSlot[] statSlot;
-    [SerializeField] private StatSlot[] attributeSlot;
+    [SerializeField]
+    private StatSlot[] statSlot;
+    [SerializeField]
+    private StatSlot[] attributeSlot;
 
     public void SetStats(StatAttribute stat, Statistic statistic)
     {
@@ -31,5 +33,4 @@ public class StatsUI : MonoBehaviour
             }
         }
     }
-
 }

@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class ItemChestInteractableObject : MonoBehaviour
 {
-    [SerializeField] ItemDropList dropList;
-    [SerializeField] float itemDropRange = 2f;
+    [SerializeField]
+    private ItemDropList dropList;
+    [SerializeField] 
+    private float itemDropRange = 2f;
 
-    bool isOpened = false;
+    private bool isOpened = false;
 
-    Animator animator;
+    private Animator animator;
 
     private void Start()
     {
@@ -21,7 +23,9 @@ public class ItemChestInteractableObject : MonoBehaviour
     public void OpenChest(Inventory inventory)
     {
         if (isOpened == true)
+        {
             return;
+        }
 
         GetComponent<Collider>().enabled = false;
 

@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class ItemTrigger : MonoBehaviour
 {
@@ -11,11 +9,14 @@ public class ItemTrigger : MonoBehaviour
 
     private InterActionObject player;
 
-    [SerializeField] private Renderer renderer;
-    [SerializeField] private Material meterial;
-    [SerializeField] private ParticleSystem particle;
+    [SerializeField]
+    private Renderer renderer;
+    [SerializeField]
+    private Material meterial;
+    [SerializeField]
+    private ParticleSystem particle;
 
-    IEnumerator ieInterAction;
+    private IEnumerator ieInterAction;
 
     private void Awake()
     {
@@ -77,45 +78,51 @@ public class ItemTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag.Contains("Player") == true)
+        if (other.gameObject.tag.Contains("Player") == false)
         {
-            if (actionDone == false)
-            {
-                UIPanelManager.instance.SetKeyUI(true);
-            }
+            return;
+        }
+
+        if (actionDone == false)
+        {
+            UIPanelManager.instance.SetKeyUI(true);
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag.Contains("Player") == true)
+        if (other.gameObject.tag.Contains("Player") == false)
         {
-            if (player.pickUp == true && ieInterAction == null)
+            return;
+        }
+
+        if (player.pickUp == true && ieInterAction == null)
+        {
+            if (actionDone == false)
             {
-                if (actionDone == false)
-                {
-                    ieInterAction = IEInterAction();
-                    StartCoroutine(ieInterAction);
-                }
+                ieInterAction = IEInterAction();
+                StartCoroutine(ieInterAction);
             }
-            else if (player.pickUp == false && actionDone == false)
-            {
-                UIPanelManager.instance.SetKeyUI(true);
-            }
+        }
+        else if (player.pickUp == false && actionDone == false)
+        {
+            UIPanelManager.instance.SetKeyUI(true);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag.Contains("Player") == true)
+        if (other.gameObject.tag.Contains("Player") == false)
         {
-            UIPanelManager.instance.SetKeyUI(false);
+            return;
+        }
 
-            if (ieInterAction != null)
-            {
-                StopCoroutine(ieInterAction);
-                ieInterAction = null;
-            }
+        UIPanelManager.instance.SetKeyUI(false);
+
+        if (ieInterAction != null)
+        {
+            StopCoroutine(ieInterAction);
+            ieInterAction = null;
         }
     }
 }

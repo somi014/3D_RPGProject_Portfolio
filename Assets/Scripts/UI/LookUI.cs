@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class LookUI : MonoBehaviour
 {
- 
-
-
-    void Update()
+    private void Update()
     {
-
         transform.LookAt(Camera.main.transform);
         transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
-
     }
-
 }

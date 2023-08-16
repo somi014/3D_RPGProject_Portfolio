@@ -5,9 +5,11 @@ using UnityEngine.Playables;
 
 public class BossStartTrigger : MonoBehaviour
 {
-    [SerializeField] BossAI boss;
+    [SerializeField] 
+    private BossAI boss;
 
-    [SerializeField] PlayableDirector director;
+    [SerializeField]
+    private PlayableDirector director;
 
     private void StartTimeline()
     {
@@ -22,7 +24,6 @@ public class BossStartTrigger : MonoBehaviour
         
         boss.bossStart = true;
     }
-
 
     private void OnTriggerEnter(Collider other)
     {

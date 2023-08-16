@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,14 +11,13 @@ public class ItemDrop
     public int weight = 1;
 }
 
-
 [CreateAssetMenu]
 public class ItemDropList : ScriptableObject
 {
     public List<ItemDrop> drops;
     public int totalWeight;
 
-    [ContextMenu("æ∆¿Ã≈€ »Æ∑¸ ∞ËªÍ")]
+    [ContextMenu("ÏïÑÏù¥ÌÖú ÌôïÎ•† Í≥ÑÏÇ∞")]
     public void CalculateTotalWeight()
     {
         totalWeight = 0;
@@ -29,13 +28,6 @@ public class ItemDropList : ScriptableObject
 
         totalWeight += 1;
     }
-
-    public string GetDropName()
-    {
-        ItemData itemData = GetDrop();
-        return itemData.name;
-    }
-
     public ItemData GetDrop()
     {
         CalculateTotalWeight();
@@ -52,5 +44,11 @@ public class ItemDropList : ScriptableObject
         }
 
         return toDrop;
+    }
+
+    public string GetDropName()
+    {
+        ItemData itemData = GetDrop();
+        return itemData.name;
     }
 }
