@@ -19,13 +19,10 @@ public partial class PlayerStateManager
     public TextMeshProUGUI stateText;                           //상태 표시용
 
     [Header("Player")]
-    [Tooltip("Move speed of the character in m/s")]
     public float MoveSpeed = 2.0f;
-
-    [Tooltip("Sprint speed of the character in m/s")]
     public float SprintSpeed = 5.335f;
 
-    [Tooltip("How fast the character turns to face movement direction")]
+    [Tooltip("이동 방향으로 회전하는 속도")]
     [Range(0.0f, 0.3f)]
     public float RotationSmoothTime = 0.12f;
 
@@ -35,110 +32,102 @@ public partial class PlayerStateManager
     [Header("Sound Source")]
     public AudioClip LandingAudioClip;
     public AudioClip[] FootstepAudioClips;
-    [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
     public AudioClip AttackAudioClips;
-    [Range(0, 1)] public float AttackAudioVolume = 0.5f;
+    [Range(0, 1)] 
+    public float FootstepAudioVolume = 0.5f;
+    [Range(0, 1)]
+    public float AttackAudioVolume = 0.5f;
 
     [Space(10)]
-    [Tooltip("The height the player can jump")]
+    [Tooltip("점프 높이")]
     public float JumpHeight = 1.2f;
 
-    [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
     public float Gravity = -15.0f;
 
     [Space(10)]
-    [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
+    [Tooltip("다시 점프 가능할 때까지 필요한 시간(0f 점프 가능")]
     public float JumpTimeout = 0.50f;
 
-    [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
+    [Tooltip("하강 상태로 진입하기 전에 경과해야하는 시간")]
     public float FallTimeout = 0.15f;
 
     [Header("Player Grounded")]
-    [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
-    public bool Grounded = true;
-
-    [Tooltip("Useful for rough ground")]
+    public bool Grounded = true;                        //CharacterController에서 수행x
     public float GroundedOffset = -0.14f;
 
-    [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
+    [Tooltip("CharacterController radius와 일치해야함")]
     public float GroundedRadius = 0.28f;
 
-    [Tooltip("What layers the character uses as ground")]
     public LayerMask GroundLayers;
 
     [Header("Cinemachine")]
-    [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
+    public GameObject playerFollowCamera;
+    public GameObject sideCamera;
+    [Tooltip("카메라가 따라갈 플레이어 위치")]
     public GameObject CinemachineCameraTarget;
 
-    [Tooltip("How far in degrees can you move the camera up")]
-    public float TopClamp = 70.0f;
+    public float TopClamp = 70.0f;                      //카메라 각도 위로
+    public float BottomClamp = -30.0f;                  //카메라 각도 아래로
 
-    [Tooltip("How far in degrees can you move the camera down")]
-    public float BottomClamp = -30.0f;
-
-    [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
+    [Tooltip("카메라 위치 추가 조정용")]
     public float CameraAngleOverride = 0.0f;
 
-    [Tooltip("For locking the camera position on all axis")]
+    [Tooltip("카메라 고정")]
     public bool LockCameraPosition = false;
 
     // cinemachine
-    private float _cinemachineTargetYaw;
-    private float _cinemachineTargetPitch;
+    private float cinemachineTargetYaw;
+    private float cinemachineTargetPitch;
 
     // player
-    private float _speed;
-    private float _animationBlend;
-    private float _targetRotation = 0.0f;
-    private float _rotationVelocity;
-    private float _verticalVelocity;
-    private float _terminalVelocity = 53.0f;
+    private float speed;
+    private float animationBlend;
+    private float targetRotation = 0.0f;
+    private float rotationVelocity;
+    private float verticalVelocity;
+    private float terminalVelocity = 53.0f;
 
     // timeout deltatime
-    private float _jumpTimeoutDelta;
-    private float _fallTimeoutDelta;
+    private float jumpTimeoutDelta;
+    private float fallTimeoutDelta;
 
     // animation IDs
     [HideInInspector] 
-    public int _animIDSpeed;
+    public int animIDSpeed;
     [HideInInspector] 
-    public int _animIDGrounded;
+    public int animIDGrounded;
     [HideInInspector] 
-    public int _animIDJump;
+    public int animIDJump;
     [HideInInspector] 
-    public int _animIDFreeFall;
+    public int animIDFreeFall;
     [HideInInspector]
-    public int _animIDMotionSpeed;
+    public int animIDMotionSpeed;
     [HideInInspector]
-    public int _animIDCombo;
+    public int animIDCombo;
     [HideInInspector] 
-    public int _animIDHeal;
+    public int animIDHeal;
     [HideInInspector]
-    public int _animIDDie;
+    public int animIDDie;
 
 #if ENABLE_INPUT_SYSTEM
     [HideInInspector] 
-    public PlayerInput _playerInput;
+    public PlayerInput playerInput;
 #endif
 
     [HideInInspector]
-    public Animator _animator;
+    public Animator animator;
     [HideInInspector]
     public StatAttribute stats;
 
-    private CharacterController _controller;
-    private GameObject _mainCamera;
+    private CharacterController controller;
+    private GameObject mainCamera;
     private DamageDealer damageDealer;
 
-    private const float _threshold = 0.01f;         //오차 값
+    private const float threshold = 0.01f;         //오차 값
 
-    private bool _hasAnimator;
+    private bool hasAnimator;
     [HideInInspector] 
     public bool deadProcess = false;                //죽었을 때 프로세스 진행했는지 여부
-
-    [Header("Camera")]
-    public GameObject playerFollowCamera;
-    public GameObject sideCamera;
 
     [Header("Spawn")]
     public Transform respawn_tr;
@@ -156,7 +145,7 @@ public partial class PlayerStateManager
         get
         {
 #if ENABLE_INPUT_SYSTEM
-            return _playerInput.currentControlScheme == "KeyboardMouse";
+            return playerInput.currentControlScheme == "KeyboardMouse";
 #else
 				return false;
 #endif

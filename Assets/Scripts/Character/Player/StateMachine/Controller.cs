@@ -9,29 +9,29 @@ public partial class PlayerStateManager : MonoBehaviour
 {
     private void Awake()
     {
-        if (_mainCamera == null)
+        if (mainCamera == null)
         {
-            _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         }
     }
     private void Start()
     {
-        _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
+        cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
 
-        _hasAnimator = TryGetComponent(out _animator);
-        _controller = GetComponent<CharacterController>();
+        hasAnimator = TryGetComponent(out animator);
+        controller = GetComponent<CharacterController>();
 #if ENABLE_INPUT_SYSTEM
-        _playerInput = GetComponent<PlayerInput>();
+        playerInput = GetComponent<PlayerInput>();
 #else
-			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
+			Debug.LogError( "Player input 확인");
 #endif
         stats = GetComponent<StatAttribute>();
         damageDealer = GetComponentInChildren<DamageDealer>();
 
         AssignAnimationIDs();
 
-        _jumpTimeoutDelta = JumpTimeout;
-        _fallTimeoutDelta = FallTimeout;
+        jumpTimeoutDelta = JumpTimeout;
+        fallTimeoutDelta = FallTimeout;
     }
 
     private void OnEnable()
@@ -59,7 +59,7 @@ public partial class PlayerStateManager : MonoBehaviour
             return;
         }
 
-        _hasAnimator = TryGetComponent(out _animator);
+        hasAnimator = TryGetComponent(out animator);
 
         JumpAndGravity();
         GroundedCheck();
@@ -93,14 +93,14 @@ public partial class PlayerStateManager : MonoBehaviour
 
     private void AssignAnimationIDs()
     {
-        _animIDSpeed = Animator.StringToHash("Speed");
-        _animIDGrounded = Animator.StringToHash("Grounded");
-        _animIDJump = Animator.StringToHash("Jump");
-        _animIDFreeFall = Animator.StringToHash("FreeFall");
-        _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
-        _animIDCombo = Animator.StringToHash("Combo");
-        _animIDHeal = Animator.StringToHash("Heal");
-        _animIDDie = Animator.StringToHash("Die");
+        animIDSpeed = Animator.StringToHash("Speed");
+        animIDGrounded = Animator.StringToHash("Grounded");
+        animIDJump = Animator.StringToHash("Jump");
+        animIDFreeFall = Animator.StringToHash("FreeFall");
+        animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+        animIDCombo = Animator.StringToHash("Combo");
+        animIDHeal = Animator.StringToHash("Heal");
+        animIDDie = Animator.StringToHash("Die");
     }
 
     /// <summary>
@@ -111,9 +111,9 @@ public partial class PlayerStateManager : MonoBehaviour
         Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
         Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
 
-        if (_hasAnimator)
+        if (hasAnimator == true)
         {
-            _animator.SetBool(_animIDGrounded, Grounded);
+            animator.SetBool(animIDGrounded, Grounded);
         }
     }
 
@@ -135,176 +135,154 @@ public partial class PlayerStateManager : MonoBehaviour
     #region Movement
     private void CameraRotation()
     {
-        // if there is an input and camera position is not fixed
-        if (look.sqrMagnitude >= _threshold && !LockCameraPosition)
+        //마우스 움직임이 있고 카메라 고정 아닐때
+        if (look.sqrMagnitude >= threshold && !LockCameraPosition)
         {
-            //Don't multiply mouse input by Time.deltaTime;
+            //마우스 입력일 때는 1.0f
             float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-            _cinemachineTargetYaw += look.x * deltaTimeMultiplier;
-            _cinemachineTargetPitch += look.y * deltaTimeMultiplier;
+            cinemachineTargetYaw += look.x * deltaTimeMultiplier;
+            cinemachineTargetPitch += look.y * deltaTimeMultiplier;
         }
 
-        // clamp our rotations so our values are limited 360 degrees
-        _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
-        _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+        //회전 제한
+        cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
+        cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, BottomClamp, TopClamp);
 
-        // Cinemachine will follow this target
-        CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
-            _cinemachineTargetYaw, 0.0f);
+        //타겟 따라서 회전
+        CinemachineCameraTarget.transform.rotation = Quaternion.Euler(cinemachineTargetPitch + CameraAngleOverride, cinemachineTargetYaw, 0.0f);
     }
 
     private void Move()
     {
-        // set target speed based on move speed, sprint speed and if sprint is pressed
         float targetSpeed = sprint ? SprintSpeed : MoveSpeed;
 
-        // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
-
         // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-        // if there is no input, set the target speed to 0
-        if (move == Vector2.zero) targetSpeed = 0.0f;
+        // => Vector2 == 연산이 부동 소수점 오류 발생 ↓ magnitude보다 비용 ↓
+        if (move == Vector2.zero)
+        {
+            targetSpeed = 0.0f;
+        }
 
-        // a reference to the players current horizontal velocity
-        float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
+        //플레이어의 현재 horizontal velocity에 따라서
+        float currentHorizontalSpeed = new Vector3(controller.velocity.x, 0.0f, controller.velocity.z).magnitude;
 
         float speedOffset = 0.1f;
         float inputMagnitude = analogMovement ? move.magnitude : 1f;
 
-        // accelerate or decelerate to target speed
-        if (currentHorizontalSpeed < targetSpeed - speedOffset ||
-            currentHorizontalSpeed > targetSpeed + speedOffset)
+        // 목표 스피드까지 가속 or 감속
+        if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
         {
-            // creates curved result rather than a linear one giving a more organic speed change
-            // note T in Lerp is clamped, so we don't need to clamp our speed
-            _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
-                Time.deltaTime * SpeedChangeRate);
-
-            // round speed to 3 decimal places (소수점 아래 3)
-            _speed = Mathf.Round(_speed * 1000f) / 1000f;
+            speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);     //스피드 값 수정
+            speed = Mathf.Round(speed * 1000f) / 1000f;                                                                     //소수점 아래 3 반올림
         }
         else
         {
-            _speed = targetSpeed;
+            speed = targetSpeed;
         }
 
-        //parmetor of Idle Walk Run Blend at animator
-        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
-        if (_animationBlend < 0.01f)
-            _animationBlend = 0f;
+        animationBlend = Mathf.Lerp(animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+        if (animationBlend < 0.01f)
+        {
+            animationBlend = 0f;
+        }
 
-        // normalise input direction
         Vector3 inputDirection = new Vector3(move.x, 0.0f, move.y).normalized;
 
-        // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-        // if there is a move input rotate player when the player is moving
+        // 이동 중 회전
         if (move != Vector2.zero && currentState != rollState)
         {
-            _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                              _mainCamera.transform.eulerAngles.y;
-            float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
-                RotationSmoothTime);
+            targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y;
+            float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref rotationVelocity, RotationSmoothTime);
 
-            // rotate to face input direction relative to camera position
             transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
         }
 
-        Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+        Vector3 targetDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
 
         if (currentState == rollState)
         {
-            //move forward
-            _controller.Move(transform.forward * (5f * Time.deltaTime) +
-                          new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            controller.Move(transform.forward * (5f * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);                //앞으로 구르기
         }
         else
         {
-            // move the player
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                             new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            controller.Move(targetDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);    //이동
 
-            // update animator if using character
-            if (_hasAnimator)
+            if (hasAnimator == true)
             {
-                _animator.SetFloat(_animIDSpeed, _animationBlend);
-                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+                animator.SetFloat(animIDSpeed, animationBlend);
+                animator.SetFloat(animIDMotionSpeed, inputMagnitude);
             }
         }
     }
 
     private void JumpAndGravity()
     {
-        if (Grounded)
+        if (Grounded == true)
         {
-            // reset the fall timeout timer
-            _fallTimeoutDelta = FallTimeout;
+            fallTimeoutDelta = FallTimeout;                         //초기화
 
-            // update animator if using character
-            if (_hasAnimator)
+            if (hasAnimator == true)
             {
-                _animator.SetBool(_animIDJump, false);
-                _animator.SetBool(_animIDFreeFall, false);
+                animator.SetBool(animIDJump, false);
+                animator.SetBool(animIDFreeFall, false);
             }
 
-            // stop our velocity dropping infinitely when grounded
-            if (_verticalVelocity < 0.0f)
+            if (verticalVelocity < 0.0f)                            //바닥에 닿았을 때 
             {
-                _verticalVelocity = -2f;
+                verticalVelocity = -2f;
             }
 
-            // Jump
-            if (jump && _jumpTimeoutDelta <= 0.0f)
+            //점프
+            if (jump && jumpTimeoutDelta <= 0.0f)
             {
-                // the square root of H * -2 * G = how much velocity needed to reach desired height
-                _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                //목표 높이까지 도달하기 위해 필요한 velocity
+                verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 
-                // update animator if using character
-                if (_hasAnimator)
-                {
-                    _animator.SetBool(_animIDJump, true);
-                }
+                animator.SetBool(animIDJump, true);
             }
 
-            // jump timeout
-            if (_jumpTimeoutDelta >= 0.0f)
+            //점프 끝
+            if (jumpTimeoutDelta >= 0.0f)
             {
-                _jumpTimeoutDelta -= Time.deltaTime;
+                jumpTimeoutDelta -= Time.deltaTime;
             }
         }
         else
         {
-            // reset the jump timeout timer
-            _jumpTimeoutDelta = JumpTimeout;
+            jumpTimeoutDelta = JumpTimeout;                         //점프 타임 아웃 초기화
 
-            // fall timeout
-            if (_fallTimeoutDelta >= 0.0f)
+            if (fallTimeoutDelta >= 0.0f)
             {
-                _fallTimeoutDelta -= Time.deltaTime;
+                fallTimeoutDelta -= Time.deltaTime;
             }
-            else
+            else                                                    //하강 중
             {
-                // update animator if using character
-                if (_hasAnimator)
-                {
-                    _animator.SetBool(_animIDFreeFall, true);
-                }
+                animator.SetBool(animIDFreeFall, true);
             }
 
-            // if we are not grounded, do not jump
             jump = false;
         }
 
-        // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-        if (_verticalVelocity < _terminalVelocity)
+        //목표 값 아래면 시간에 따라 중력 적용
+        if (verticalVelocity < terminalVelocity)
         {
-            _verticalVelocity += Gravity * Time.deltaTime;
+            verticalVelocity += Gravity * Time.deltaTime;
         }
     }
 
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
     {
-        if (lfAngle < -360f) lfAngle += 360f;
-        if (lfAngle > 360f) lfAngle -= 360f;
+        if (lfAngle < -360f)
+        {
+            lfAngle += 360f;
+        }
+
+        if (lfAngle > 360f)
+        {
+            lfAngle -= 360f;
+        }
+
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
     #endregion
@@ -314,13 +292,16 @@ public partial class PlayerStateManager : MonoBehaviour
         Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
         Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
 
-        if (Grounded) Gizmos.color = transparentGreen;
-        else Gizmos.color = transparentRed;
+        if (Grounded == true)
+        {
+            Gizmos.color = transparentGreen;
+        }
+        else
+        {
+            Gizmos.color = transparentRed;
+        }
 
-        // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
-        Gizmos.DrawSphere(
-            new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z),
-            GroundedRadius);
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
     }
 
     /// <summary>
@@ -351,7 +332,6 @@ public partial class PlayerStateManager : MonoBehaviour
             if (FootstepAudioClips.Length > 0)
             {
                 var index = Random.Range(0, FootstepAudioClips.Length);
-                //AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
                 SoundManager.instance.Play(FootstepAudioClips[index], Sound.Effect, FootstepAudioVolume);
             }
         }
@@ -387,7 +367,6 @@ public partial class PlayerStateManager : MonoBehaviour
     private void AttackEffect(int index)
     {
         particle[index].Play();
-
     }
 
     private void AttackSound()

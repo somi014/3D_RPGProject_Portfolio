@@ -17,7 +17,7 @@ public class JumpState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {
-        bool fall = player._animator.GetBool(player._animIDFreeFall);
+        bool fall = player.animator.GetBool(player.animIDFreeFall);
         if (player.Grounded == true && fall == true)
         {
             player.SwitchState(player.idlingState);

@@ -12,9 +12,9 @@ public class AttackState : PlayerBaseState
     {
         comboCount = 0;
 
-        player._animator.SetInteger("Combo", comboCount);
-        player._animator.SetTrigger("Attack");
-        player._animator.SetBool("AttackDone", false);
+        player.animator.SetInteger("Combo", comboCount);
+        player.animator.SetTrigger("Attack");
+        player.animator.SetBool("AttackDone", false);
 
         canCombo = false;
         attack = false;
@@ -25,7 +25,7 @@ public class AttackState : PlayerBaseState
 
     public override void HandleInput(PlayerStateManager player)
     {
-        if (player._playerInput.actions["Attack"].triggered == true && canCombo == true)
+        if (player.playerInput.actions["Attack"].triggered == true && canCombo == true)
         {
             attack = true;
         }
@@ -33,8 +33,8 @@ public class AttackState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {
-        bool curAnim = player._animator.GetCurrentAnimatorStateInfo(0).IsName("Attack" + comboCount);
-        if (player._animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && curAnim)
+        bool curAnim = player.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack" + comboCount);
+        if (player.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && curAnim)
         {
             canCombo = true;
 
@@ -46,14 +46,14 @@ public class AttackState : PlayerBaseState
                     comboCount = 0;
                 }
 
-                player._animator.SetInteger("Combo", comboCount);
+                player.animator.SetInteger("Combo", comboCount);
                 attack = false;
                 canCombo = false;
             }
         }
-        if (player._animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.98f && curAnim)
+        if (player.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.98f && curAnim)
         {
-            player._animator.SetBool("AttackDone", true);
+            player.animator.SetBool("AttackDone", true);
             player.SwitchState(player.idlingState);
         }
     }

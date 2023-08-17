@@ -6,7 +6,7 @@ public class HealState : PlayerBaseState
 {
     public override void EnterState(PlayerStateManager player)
     {
-        player._animator.SetTrigger(player._animIDHeal);
+        player.animator.SetTrigger(player.animIDHeal);
     }
     public override void ExitState(PlayerStateManager player)
     {
@@ -18,10 +18,10 @@ public class HealState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {
-        if (player._animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f &&
-                    player._animator.GetCurrentAnimatorStateInfo(0).IsName("Heal"))
+        if (player.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f &&
+                    player.animator.GetCurrentAnimatorStateInfo(0).IsName("Heal"))
         {
-            player._animator.ResetTrigger(player._animIDHeal);
+            player.animator.ResetTrigger(player.animIDHeal);
             player.SwitchState(player.idlingState);
         }
     }

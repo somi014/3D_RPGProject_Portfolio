@@ -6,11 +6,11 @@ public class RollState : PlayerBaseState
 {
     public override void EnterState(PlayerStateManager player)
     {
-        player._animator.SetTrigger("Roll");
+        player.animator.SetTrigger("Roll");
     }
     public override void ExitState(PlayerStateManager player)
     {
-        player._animator.ResetTrigger("Roll");
+        player.animator.ResetTrigger("Roll");
     }
 
     public override void HandleInput(PlayerStateManager player)

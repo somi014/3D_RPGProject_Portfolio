@@ -18,8 +18,8 @@ public class DamageState : PlayerBaseState
 
     public override void UpdateState(PlayerStateManager player)
     {       
-        if (player._animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f &&
-                    player._animator.GetCurrentAnimatorStateInfo(0).IsName("Damage"))
+        if (player.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f &&
+                    player.animator.GetCurrentAnimatorStateInfo(0).IsName("Damage"))
         {
             player.SwitchState(player.idlingState);
         }
