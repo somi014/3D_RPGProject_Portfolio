@@ -23,7 +23,6 @@
   
   - 상태 패턴을 이용해 이동, 공격, 점프 등 상태를 전환했습니다.</br>
   
-  </br>
 </details>
 <details>
   <summary>몬스터</summary>
