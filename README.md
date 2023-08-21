@@ -21,13 +21,17 @@
   <summary>플레이어</summary>
   <!--summary 아래 빈칸 공백 두고 내용을 적는공간-->
   
+  - 상태 패턴을 이용해 이동, 공격, 점프 등 상태를 전환했습니다.</br>
+  
   </br>
 </details>
 <details>
   <summary>몬스터</summary>
   <!--summary 아래 빈칸 공백 두고 내용을 적는공간-->
+
+  - FSM을 이용해 상태를 자동으로 제어하고 있습니다.</br>
+  - ObjectPool을 이용해 죽었을 때 일정 시간 뒤에 리스폰 되도록했습니다.</br>
   
-  </br>
 </details>
 <details>
   <summary>인벤토리</summary>
